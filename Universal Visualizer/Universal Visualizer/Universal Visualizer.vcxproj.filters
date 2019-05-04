@@ -25,6 +25,18 @@
     <Filter Include="Заголовочные файлы\of 3D Model">
       <UniqueIdentifier>{91a27752-520a-422f-83e6-16eb8894d74e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Заголовочные файлы\of MR_3D_Model">
+      <UniqueIdentifier>{1e5017d8-6622-47d2-9cad-b41fec0798fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\of MR_3D_Model">
+      <UniqueIdentifier>{3b721073-eda6-4f7c-b19b-4d85efc6027d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\Tests">
+      <UniqueIdentifier>{ecb3cb2b-cf3d-4291-bd5b-adc5c0a96978}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\Tests">
+      <UniqueIdentifier>{fffa9e6f-9892-4d0e-a249-2a442b69ebb2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -56,6 +68,33 @@
     </ClCompile>
     <ClCompile Include="Universal Visualizer.cpp">
       <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="3DModel.cpp">
+      <Filter>Файлы исходного кода\of 3D Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw3DObject.cpp">
+      <Filter>Файлы исходного кода\of 3D Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Open3DFile.cpp">
+      <Filter>Файлы исходного кода\of 3D Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Open3DFile_LoadingTextures.cpp">
+      <Filter>Файлы исходного кода\of 3D Model</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>Файлы исходного кода\of 3D Model</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_3D_Model.cpp">
+      <Filter>Файлы исходного кода\of MR_3D_Model</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_math.cpp">
+      <Filter>Файлы исходного кода\of MR_3D_Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Test Matrix.cpp">
+      <Filter>Файлы исходного кода\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Test Model.cpp">
+      <Filter>Файлы исходного кода\Tests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +137,21 @@
     <ClInclude Include="FormDemo.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="3DModel.h">
+      <Filter>Заголовочные файлы\of 3D Model</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Заголовочные файлы\of 3D Model</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_3D_Model.h">
+      <Filter>Заголовочные файлы\of MR_3D_Model</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_math.h">
+      <Filter>Заголовочные файлы\of MR_3D_Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests.h">
+      <Filter>Заголовочные файлы\Tests</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico">
@@ -138,9 +192,21 @@
     <None Include="freeglut.dll">
       <Filter>Файлы ресурсов</Filter>
     </None>
+    <None Include="DevIL.dll">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="ILU.dll">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Library Include="freeglut.lib">
+      <Filter>Файлы ресурсов</Filter>
+    </Library>
+    <Library Include="DevIL.lib">
+      <Filter>Файлы ресурсов</Filter>
+    </Library>
+    <Library Include="ILU.lib">
       <Filter>Файлы ресурсов</Filter>
     </Library>
   </ItemGroup>

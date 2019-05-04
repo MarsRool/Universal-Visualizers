@@ -65,6 +65,13 @@ void RGB_MR::setColor(int k, double colori)
 {
 	color3[k] = colori;
 }
+
+void RGB_MR::setColor(double red, double green, double blue)
+{
+	color3[0] = red;
+	color3[1] = green;
+	color3[2] = blue;
+}
 /////////////////////////////////
 graph_data::graph_data()
 {
@@ -280,7 +287,12 @@ void graph::AddFunc(char *instr, int len, const RGB_MR &colori, System::Windows:
 	int k = sizeof(graph_data);
 	int n = sizeof(graph_func);
 	int l = sizeof(graph_data*);
-	funcs = (graph_func*) realloc (funcs, nfuncs*sizeof(graph_func));
+	graph_func* temp = funcs;
+	funcs = new graph_func[nfuncs];
+	for (int i = 0; i < nfuncs - 1; i++)
+		funcs[i] = temp[i];
+	delete temp;
+	//funcs = (graph_func*) realloc (funcs, nfuncs*sizeof(graph_func));
 	num_func_calculateing=nfuncs-1;//для ошибок
 	funcs[nfuncs - 1].ClearData();
 	funcs[nfuncs - 1].Translate(instr, len);
@@ -299,7 +311,12 @@ bool graph::DeleteFunc(int k)//удалить функцию под номером k
 			funcs[i]=funcs[i+1];
 		}
 		nfuncs--;
-		funcs = (graph_func*) realloc (funcs, nfuncs*sizeof(graph_func));
+		graph_func* temp = funcs;
+		funcs = new graph_func[nfuncs];
+		for (int i = 0; i < nfuncs; i++)
+			funcs[i] = temp[i];
+		delete temp;
+		//funcs = (graph_func*) realloc (funcs, nfuncs*sizeof(graph_func));
 		return true;
 	}
 	else

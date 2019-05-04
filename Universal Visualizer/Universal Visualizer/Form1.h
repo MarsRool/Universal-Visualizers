@@ -1018,7 +1018,7 @@ namespace UniversalVisualizer {
 			GRAPHICS.modeistoses = checkBox2->Checked;
 			GRAPHICS.modepokaz = checkBox3->Checked;
 
-			button6_Click(sender, e);//добавление функции
+			/*button6_Click(sender, e);//добавление функции
 			textBoxes[0]->Text = L"x^2+y^2";
 			String^ instr = textBoxes[0]->Text;//textBoxex[0]->Text; добавление функций
 			UniversalVisualizer::Form_Process^ f = gcnew UniversalVisualizer::Form_Process();
@@ -1039,7 +1039,7 @@ namespace UniversalVisualizer {
 			GRAPHICS.FuncsReOut();
 
 			buttons_color_func[0]->Enabled = false;
-			buttons_random_color[0]->Enabled = false;
+			buttons_random_color[0]->Enabled = false;*/
 
 			GRAPHICS.ffs = Form1::Font->Size;
 			System::Drawing::Font^ FF = gcnew System::Drawing::Font("Microsoft Sans Serif", GRAPHICS.ffs + 1, FontStyle::Regular);

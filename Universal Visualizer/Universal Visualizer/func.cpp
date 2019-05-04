@@ -5,6 +5,7 @@
 #include <iostream>
 #include <windows.h>
 #include <ShellAPI.h>
+#include "func.h"
 #pragma comment(lib,"shell32.lib")
 using namespace std;
 
@@ -123,5 +124,80 @@ void CalculateScreenSize(int &x, int &y)
 
 void Open_Help()
 {
-	ShellExecute(NULL,L"Open",L"data\\3D_Visualizer_v5.chm",NULL,NULL,SW_RESTORE);
+	ShellExecute(NULL,"Open","data\\3D_Visualizer_v5.chm",NULL,NULL,SW_RESTORE);
+}
+
+//of 3D Model
+char* find_folder(const char* ins, int &nout)
+{
+	int countsl = -1, i = 0;
+	while (ins[i] != 0)
+	{
+		if (ins[i] == '/' || ins[i] == '\\')
+			countsl = i;
+		i++;
+	}
+
+	char *ous = new char[countsl + 2];//!!!
+	for (i = 0; i <= countsl; i++)
+		ous[i] = ins[i];
+	ous[countsl + 1] = 0;
+	nout = i;
+	return ous;
+}
+
+double findDoubleInStr(char * ins, int length, char ** insAfterDouble)
+{
+	double result;
+	bool isOk = false;
+	result = 0.0;
+	bool dot = false; int n_after_dot = 0;
+	bool isminus = false;
+	for (int i = 0; i < length; i++)
+		if (ins[i] >= '0' && ins[i] <= '9')
+		{
+			isOk = true;
+			break;
+		}
+
+	*insAfterDouble = NULL;
+	if (isOk)//число есть
+	{
+		for (int i = 0; i < length; i++)
+		{
+			if (ins[i] >= '0' && ins[i] <= '9')
+			{
+				if (i > 0)
+					if (ins[i - 1] == '-')
+						isminus = true;
+				for (; i < length; i++)
+				{
+					if (ins[i] >= '0' && ins[i] <= '9')
+					{
+						if (!dot)
+							result = result * 10 + (double)((int)ins[i] - (int)'0');
+						else
+						{
+							n_after_dot++;
+							result = result + (double)((int)ins[i] - (int)'0') / std::pow(10.0, n_after_dot);
+						}
+					}
+					else if (ins[i] == '.' || ins[i] == ',')
+						if (!dot)
+							dot = true;
+						else
+							break;
+					else
+						break;
+				}
+				if (isminus)
+					result = -result;
+				*insAfterDouble = new char[length + 1 - i];
+				for (int j = 0; j < length + 1 - i; j++)
+					(*insAfterDouble)[j] = ins[j + i];
+				break;
+			}
+		}
+	}
+	return result;
 }

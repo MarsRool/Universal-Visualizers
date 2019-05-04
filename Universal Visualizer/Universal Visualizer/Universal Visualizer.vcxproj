@@ -29,14 +29,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>true</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>true</CLRSupport>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
@@ -189,6 +189,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="3DModel.cpp" />
+    <ClCompile Include="Draw3DObject.cpp" />
+    <ClCompile Include="MR_3D_Model.cpp" />
+    <ClCompile Include="MR_math.cpp" />
+    <ClCompile Include="Open3DFile.cpp" />
+    <ClCompile Include="Open3DFile_LoadingTextures.cpp" />
+    <ClCompile Include="Test Matrix.cpp" />
+    <ClCompile Include="Test Model.cpp" />
+    <ClCompile Include="texture.cpp" />
     <ClCompile Include="Universal Visualizer.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="calculator from OPN.cpp" />
@@ -204,6 +213,7 @@
     <ClCompile Include="translate to OPN.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3DModel.h" />
     <ClInclude Include="calculate from OPN.h" />
     <ClInclude Include="conversions.h" />
     <ClInclude Include="Form1.h">
@@ -224,9 +234,13 @@
     <ClInclude Include="FormMain.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="MR_3D_Model.h" />
+    <ClInclude Include="MR_math.h" />
     <ClInclude Include="OpenGL funcs.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Tests.h" />
+    <ClInclude Include="texture.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico" />
@@ -258,10 +272,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="DevIL.dll" />
     <None Include="freeglut.dll" />
+    <None Include="ILU.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="DevIL.lib" />
     <Library Include="freeglut.lib" />
+    <Library Include="ILU.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

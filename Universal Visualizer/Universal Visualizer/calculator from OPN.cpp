@@ -134,7 +134,7 @@ double graph_func::calculate(char inpoutstr[sostr], int sch, double x, double y,
 {//функция расчета текущего значения функции из ОПН]
 	flag_fail_t=-1;
     char c;
-	char symbi[40];//текущий элемент строки
+	char symbi[40] = "";//текущий элемент строки
 	short int lengthsymbi=0;//длина элемента строки
 	double res=0;//вспомогательный элемент для числа
 	bool drob;int jn;int jj;
@@ -143,252 +143,253 @@ double graph_func::calculate(char inpoutstr[sostr], int sch, double x, double y,
 	int k=0;//сколько элементов в входной строке
 	np[0]=-1;
 	for (int i=0;i<sch;i++)
-	if (inpoutstr[i]==' ')
-	{
-		k++;
-		np[k]=i;
-	}
+		if (inpoutstr[i]==' ')
+		{
+			k++;
+			np[k]=i;
+		}
 	k++;
 	np[k]=sch;
     for(int i=0;i<k;i++)
-	if (data[tii].Matrnorm[indi][indj]==true)
-	{
-		lengthsymbi=0;
-		for (int j=np[i]+1;j<np[i+1];j++)
+		if (data[tii].Matrnorm[indi][indj]==true)
 		{
-			symbi[lengthsymbi]=inpoutstr[j];
-			lengthsymbi++;
-		}
-		c=symbi[0];
-        switch(c)
-        {
-            case '+':{ // если операция сложения
-                double op1=S.top();
-                S.pop();
-                double op2=S.top();
-                S.pop();
-				double result = op2 + op1;
-                S.push(result);
-            }break;
-            case '-':{ // если операция вычитания
-                double op1=S.top();
-                S.pop();
-                double op2=S.top();
-                S.pop();
-				double result = op2 - op1;
-                S.push(result);
-            }break;
-            case '*':{ // если операция умножения
-                double op1=S.top();
-                S.pop();
-                double op2=S.top();
-                S.pop();
-				double result = op2 * op1;
-                S.push(result);
-            }break;
-            case '/':{ // если операция деления
-                double op1=S.top();
-                S.pop();
-                double op2=S.top();
-                S.pop();
-				double result = 0;
-				if (!(fabs(op1) < smallV))
-					result = op2 / op1;
-				else
-				{
-					flag_fail_t=0;//деление на маленькое число
-					data[tii].Matrnorm[indi][indj] = false;
-					result = (op1 > 0 && op2 > 0) || (op1 < 0 && op2 < 0) ? DBL_MAX : -DBL_MAX;
-				}
-                S.push(result);
-            }break;
-			case '^':{ // если операция возведения в степень
-				double op1 = S.top();
-                S.pop();
-				double op2 = S.top();
-                S.pop();
-                double result = 0;
-				double cel;
-				if (!(op2<0 && (fabs(modf(op1,&cel))>smallV))  &&  !(fabs(op2)<smallV && op1<=0))
-				{
-					result = pow(op2, op1);
-					S.push(result);
-				}
-				else 
-				{
-					flag_fail_t = 1;//недопустимое возведение в степень
-					data[tii].Matrnorm[indi][indj] = false;
-				}
-            }break;
-			case 's':{//sin
-				double op = S.top();
-				S.pop();
-				double result = sin(op);
-				S.push(result);
-			}break;
-			case 'c':{//cos
-				double op = S.top();
-				S.pop();
-				double result = cos(op);
-				S.push(result);
-			}break;
-			case 'p':{//tg
-				double op = S.top();
-				S.pop();
-				double result = 0;
-				if (fabs(fabs(fmod(op,PI))-PI/2)>0.01)
-				{
-					result = tan(op);
-					S.push(result);
-				}
-				else
-					data[tii].Matrnorm[indi][indj]=false;
-			}break;
-			case 'g':{//ctg
-				double op = S.top();
-				S.pop();
-				double result = 0;
-				if (fabs(fmod(op, PI)) > 0.01)
-				{
-					result = tan(PI / 2 - op);
-					S.push(result);
-				}
-				else
-					data[tii].Matrnorm[indi][indj] = false;
-			}break;
-			case 'q':{//sqrt
-				double op=S.top();
-				S.pop();
-				double result = 0;
-				if (op>=0)
-				{
-					result=sqrt(op);
-					S.push(result);
-				}
-				else
-					data[tii].Matrnorm[indi][indj]=false;
-			}break;
-
-			case 'a':{//abs
-				double op=S.top();
-				S.pop();
-				double result = 0;
-				result=fabs(op);
-				S.push(result);
-			}break;
-			case 'r':{//round
-				double op=S.top();
-				S.pop();
-				double result = 0;
-				result=round(op);
-				S.push(result);
-			}break;
-			case 'l':{//ceil
-				double op=S.top();
-				S.pop();
-				double result = 0;
-				result=ceil(op);
-				S.push(result);
-			}break;
-			case 'f':{//floor
-				double op=S.top();
-				S.pop();
-				double result = 0;
-				result=floor(op);
-				S.push(result);
-			}break;
-
-			case 'v':{//asin
-				double op=S.top();
-				S.pop();
-				double result = 0;
-				if(op>=-1 && op<=1)
-					result=asin(op);
-				else
-					data[tii].Matrnorm[indi][indj]=false;
-				S.push(result);
-			}break;
-			case 'b':{//acos
-				double op=S.top();
-				S.pop();
-				double result = 0;
-				if(op>=-1 && op<=1)
-					result=acos(op);
-				else
-					data[tii].Matrnorm[indi][indj]=false;
-				S.push(result);
-			}break;
-			case 'i':{//atg
-				double op=S.top();
-				S.pop();
-				double result = 0;
-				result=atan(op);
-				S.push(result);
-			}break;
-			case 'm':{//actg
-				double op=S.top();
-				S.pop();
-				double result = 0;
-				result=PI/2-atan(op);
-				S.push(result);
-			}break;
-
-			case 'n':{//ln
-				double op=S.top();
-				S.pop();
-				double result = 0;
-				if(op>0)
-					result=log(op);
-				else
-					data[tii].Matrnorm[indi][indj]=false;
-				S.push(result);
-			}break;
-			case 'u':{//log
-				double op=S.top();
-				S.pop();
-				double result = 0;
-				if(op>0)
-					result=log10(op);
-				else
-					data[tii].Matrnorm[indi][indj]=false;
-				S.push(result);
-			}break;
-
-			case 'x':{S.push(x);}break;
-			case 'y':{S.push(y);}break;
-			case 't':{S.push(t);}break;
-            default: // если цифра
+			lengthsymbi=0;
+			for (int j=np[i]+1;j<np[i+1];j++)
 			{
-				if (c>='0' && c<='9'){
-					res=0;
-					drob=false;//дробная ли часть
-					jn=1000;
-					for (int j=0;j<lengthsymbi;j++)
+				symbi[lengthsymbi]=inpoutstr[j];
+				lengthsymbi++;
+			}
+			c=symbi[0];
+			switch(c)
+			{
+				case '+':{ // если операция сложения
+					double op1=S.top();
+					S.pop();
+					double op2=S.top();
+					S.pop();
+					double result = op2 + op1;
+					S.push(result);
+				}break;
+				case '-':{ // если операция вычитания
+					double op1=S.top();
+					S.pop();
+					double op2=S.top();
+					S.pop();
+					double result = op2 - op1;
+					S.push(result);
+				}break;
+				case '*':{ // если операция умножения
+					double op1=S.top();
+					S.pop();
+					double op2=S.top();
+					S.pop();
+					double result = op2 * op1;
+					S.push(result);
+				}break;
+				case '/':{ // если операция деления
+					double op1=S.top();
+					S.pop();
+					double op2=S.top();
+					S.pop();
+					double result = 0;
+					if (!(fabs(op1) < smallV))
+						result = op2 / op1;
+					else
 					{
-						if ((symbi[j]==','||symbi[j]=='.') && drob==false)
-						{
-							drob=true;
-							jn=j+1;
-						}
-					if (drob==false && symbi[j]!='.' && symbi[j]!=',')
-						res=res*10+symbi[j]-'0';
+						flag_fail_t=0;//деление на маленькое число
+						data[tii].Matrnorm[indi][indj] = false;
+						result = (op1 > 0 && op2 > 0) || (op1 < 0 && op2 < 0) ? DBL_MAX : -DBL_MAX;
 					}
-					if (drob==true)
-					for (jj=jn;jj<lengthsymbi;jj++)
+					S.push(result);
+				}break;
+				case '^':{ // если операция возведения в степень
+					double op1 = S.top();
+					S.pop();
+					double op2 = S.top();
+					S.pop();
+					double result = 0;
+					double cel;
+					if (!(op2<0 && (fabs(modf(op1,&cel))>smallV))  &&  !(fabs(op2)<smallV && op1<=0))
 					{
-						//res=res+(symbi[jj]-'0')/pow(10,jj-jn+1);
-						double idrob=symbi[jj]-'0';//текущий дробный символ
-						for (int l=jj;l>=jn;l--)
-							idrob/=10;
-						res+=idrob;
+						result = pow(op2, op1);
+						S.push(result);
 					}
+					else 
+					{
+						flag_fail_t = 1;//недопустимое возведение в степень
+						data[tii].Matrnorm[indi][indj] = false;
+					}
+				}break;
+				case 's':{//sin
+					double op = S.top();
+					S.pop();
+					double result = sin(op);
+					S.push(result);
+				}break;
+				case 'c':{//cos
+					double op = S.top();
+					S.pop();
+					double result = cos(op);
+					S.push(result);
+				}break;
+				case 'p':{//tg
+					double op = S.top();
+					S.pop();
+					double result = 0;
+					if (fabs(fabs(fmod(op,PI))-PI/2)>0.01)
+					{
+						result = tan(op);
+						S.push(result);
+					}
+					else
+						data[tii].Matrnorm[indi][indj]=false;
+				}break;
+				case 'g':{//ctg
+					double op = S.top();
+					S.pop();
+					double result = 0;
+					if (fabs(fmod(op, PI)) > 0.01)
+					{
+						result = tan(PI / 2 - op);
+						S.push(result);
+					}
+					else
+						data[tii].Matrnorm[indi][indj] = false;
+				}break;
+				case 'q':{//sqrt
+					double op=S.top();
+					S.pop();
+					double result = 0;
+					if (op>=0)
+					{
+						result=sqrt(op);
+						S.push(result);
+					}
+					else
+						data[tii].Matrnorm[indi][indj]=false;
+				}break;
 
-				S.push(res);
+				case 'a':{//abs
+					double op=S.top();
+					S.pop();
+					double result = 0;
+					result=fabs(op);
+					S.push(result);
+				}break;
+				case 'r':{//round
+					double op=S.top();
+					S.pop();
+					double result = 0;
+					result=round(op);
+					S.push(result);
+				}break;
+				case 'l':{//ceil
+					double op=S.top();
+					S.pop();
+					double result = 0;
+					result=ceil(op);
+					S.push(result);
+				}break;
+				case 'f':{//floor
+					double op=S.top();
+					S.pop();
+					double result = 0;
+					result=floor(op);
+					S.push(result);
+				}break;
+
+				case 'v':{//asin
+					double op=S.top();
+					S.pop();
+					double result = 0;
+					if(op>=-1 && op<=1)
+						result=asin(op);
+					else
+						data[tii].Matrnorm[indi][indj]=false;
+					S.push(result);
+				}break;
+				case 'b':{//acos
+					double op=S.top();
+					S.pop();
+					double result = 0;
+					if(op>=-1 && op<=1)
+						result=acos(op);
+					else
+						data[tii].Matrnorm[indi][indj]=false;
+					S.push(result);
+				}break;
+				case 'i':{//atg
+					double op=S.top();
+					S.pop();
+					double result = 0;
+					result=atan(op);
+					S.push(result);
+				}break;
+				case 'm':{//actg
+					double op=S.top();
+					S.pop();
+					double result = 0;
+					result=PI/2-atan(op);
+					S.push(result);
+				}break;
+
+				case 'n':{//ln
+					double op=S.top();
+					S.pop();
+					double result = 0;
+					if(op>0)
+						result=log(op);
+					else
+						data[tii].Matrnorm[indi][indj]=false;
+					S.push(result);
+				}break;
+				case 'u':{//log
+					double op=S.top();
+					S.pop();
+					double result = 0;
+					if(op>0)
+						result=log10(op);
+					else
+						data[tii].Matrnorm[indi][indj]=false;
+					S.push(result);
+				}break;
+
+				case 'x':{S.push(x);}break;
+				case 'y':{S.push(y);}break;
+				case 't':{S.push(t);}break;
+				default: // если цифра
+				{
+					if (c>='0' && c<='9'){
+						res=0;
+						drob=false;//дробная ли часть
+						jn=1000;
+						for (int j=0;j<lengthsymbi;j++)
+						{
+							if ((symbi[j]==','||symbi[j]=='.') && drob==false)
+							{
+								drob=true;
+								jn=j+1;
+							}
+						if (drob==false && symbi[j]!='.' && symbi[j]!=',')
+							res=res*10+symbi[j]-'0';
+						}
+						if (drob==true)
+						for (jj=jn;jj<lengthsymbi;jj++)
+						{
+							//res=res+(symbi[jj]-'0')/pow(10,jj-jn+1);
+							double idrob=symbi[jj]-'0';//текущий дробный символ
+							for (int l=jj;l>=jn;l--)
+								idrob/=10;
+							res+=idrob;
+						}
+
+					S.push(res);
+					}
 				}
 			}
-        }
-    }
-	if (!S.empty()) return S.top();
+		}
+	if (!S.empty())
+		return S.top();
 	else 
 	{
 		data[tii].Matrnorm[indi][indj]=false;

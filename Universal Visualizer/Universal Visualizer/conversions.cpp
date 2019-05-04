@@ -2,6 +2,7 @@
 #include "global.h"
 #include "func.h"
 #include <windows.h>
+#include "conversions.h"
 using namespace std;
 
 /*old
@@ -51,7 +52,7 @@ unsigned char * dtuch(double a)//double to unsigned char[]
 	return ch;
 }*/
 
-unsigned char * dtuch(double a, int precision=2)//double to unsigned char[]
+unsigned char * dtuch(double a, int precision)//double to unsigned char[]
 {
 	unsigned char cha[64], *ch;//cha-число с цифрами наоборот, ch- число
 	short int i = 0;//сколько символов в cha
@@ -233,6 +234,37 @@ double StrToD(bool &failed, System::String^ stri)//System::String^ to Double
 	if (failed==true) return 0;
 }
 
+unsigned char * chTouch(char * ch)
+{
+	int count = -1;
+	while (ch[++count] != 0);
+	unsigned char *out = new unsigned char[count + 1];
+	unsigned char test = (unsigned char)'а';
+	for (int i = 0; i <= count; i++)
+	{
+		if (ch[i] < 0)
+			out[i] = (unsigned char)(128 - ch[i]);
+		else
+			out[i] = (unsigned char)ch[i];
+	}
+	return out;
+}
+
+char * uchToch(unsigned char * uch)
+{
+	int count = -1;
+	while (uch[++count] != 0);
+	char *out = new char[count + 1];
+	for (int i = 0; i <= count; i++)
+	{
+		if (uch[i] > 127)
+			out[i] = (char)(128 - uch[i]);
+		else
+			out[i] = (char)uch[i];
+	}
+	return out;
+}
+
 System::String^ uchToStr(unsigned char * ch)//unsigned char[] to System::String^
 {
 	int i=0;
@@ -372,4 +404,60 @@ System::String^ strToStr(string stri)//string to System::String^
 			Str += wchar_t(stri[i]);
 	}
 	return Str;
+}
+
+wchar_t * chToWch(char * ch)
+{
+	int count = -1;
+	while (ch[++count] != 0);
+	wchar_t *out = new wchar_t[count + 1];
+	for (int i = 0; i <= count; i++)
+	{
+		if (ch[i] == -88)
+			out[i] = L'Ё';
+		else if (ch[i] == -72)
+			out[i] = L'ё';
+		else if (ch[i] >= -64 && ch[i] <= -1)
+			out[i] = wchar_t(ch[i] + 1104);
+		else
+			out[i] = wchar_t(ch[i]);
+	}
+	return out;
+}
+
+char * WchToch(wchar_t * wch)
+{
+	int count = -1;
+	while (wch[++count] != 0);
+	char *out = new char[count + 1];
+	for (int i = 0; i <= count; i++)
+	{
+		if (wch[i] == 1025)
+			out[i] = 'Ё';
+		else if (wch[i] == 1105)
+			out[i] = 'ё';
+		else if (wch[i] >= 1040 && wch[i] <= 1103)
+			out[i] = wch[i] - 1104;
+		else
+			out[i] = (char)wch[i];
+	}
+	return out;
+}
+
+wchar_t * StrToWch(System::String ^ Str)
+{
+	wchar_t* out = new wchar_t[Str->Length + 1];
+	for (int i = 0; i < Str->Length; i++)
+		out[i] = Str[i];
+	out[Str->Length] = L'\0';
+	return out;
+}
+
+System::String ^ WchToStr(wchar_t * wch)
+{
+	System::String^ str = L"";
+	int i = -1;
+	while (wch[++i] != 0)
+		str += wch[i];
+	return str;
 }

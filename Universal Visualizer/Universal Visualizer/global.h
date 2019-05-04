@@ -13,7 +13,7 @@ const std::string eqf[15]={//эквивалент функциям в полной записи
 "asin","acos","atg","actg",
 "ln","log"};
 
-const double smallV=0.001,bigV=1000000;//малая величина, большая величина
+const double smallV=0.01,bigV=1000000;//малая величина, большая величина
 const int soarr=101,sostr=1000,sorazm=10;
 //(sizeofarr,sizeofstr,sizeofrazmern)размер массива значений(сетки), размер строки в символах, размер числа в символах
 
