@@ -397,7 +397,7 @@ void UniversalVisualizer::FormLoad::LoadListOfFuncsLoad()
 					for (int i = 0; i < nfi; i++)
 						functions_str_out[i] = functions_str[i];
 					char *namei_out = new char[sostr];
-					for (int j = 0; j <= sizeof(namei); j++)
+					for (int j = 0; j < sizeof(namei); j++)
 						namei_out[j] = namei[j];
 					GRAPHICS.listOfFuncs.AddFunc(namei_out, functions_str_out);
 				}
@@ -482,7 +482,7 @@ void UniversalVisualizer::FormDemo::LoadListOfFuncsDemo()
 						functions_str_out[i][j] = functions_str[i][j];
 				}
 				char *namei_out = new char[sostr];
-				for (int j = 0; j <= sizeof(namei); j++)
+				for (int j = 0; j < sizeof(namei); j++)
 					namei_out[j] = namei[j];
 				GRAPHICS.listOfFuncs.AddFunc(namei_out, functions_str_out);
 			}

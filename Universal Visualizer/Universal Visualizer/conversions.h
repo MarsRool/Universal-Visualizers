@@ -9,6 +9,9 @@ int uchti(unsigned char* ch, bool &failed);//unsigned char[] to int
 
 double StrToD(bool &failed, System::String^ stri);//System::String^ to double
 
+unsigned char * chTouch(char* ch);//unsigned char[] to char[]
+char * uchToch(unsigned char* uch);//char[] to unsigned char[]
+
 System::String^ uchToStr(unsigned char * ch);//unsigned char[] to System::String^
 unsigned char * StrTouch(System::String^ stri);//System::String^ to unsigned char[]
 
@@ -23,3 +26,9 @@ char * strToCh(std::string stri);//string to char[]
 
 std::string StrTostr(System::String^ Str);//System::String^ to string
 System::String^ strToStr(std::string stri);//string to System::String^
+
+wchar_t* chToWch(char* ch);//char* to wchar_t*
+char* WchToch(wchar_t* wch);//whar_t* to char*
+
+wchar_t* StrToWch(System::String^ Str);
+System::String^ WchToStr(wchar_t* wch);

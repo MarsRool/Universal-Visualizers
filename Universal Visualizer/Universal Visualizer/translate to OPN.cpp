@@ -4,10 +4,12 @@
 #include "func.h"
 #include "OpenGL funcs.h"
 #include "graph.h"
+#include "3DModel.h"
 
 using namespace std;
 
 graph GRAPHICS;
+std::vector<t3DModel> MODELS_3D;
 
 bool is_StartedChangingLang=false;//запущена ли форма изменения языка(для исключения дублей формы)
 bool is_FinishedLangChanging=false;//true-если форма ChL закрылась и нужно производить смену языка главной формы.
@@ -330,7 +332,7 @@ void graph_func::stackmachine()//трансформация в ОПН
 	bool isunminus=false; //есть ли унарный минус, относящийся к числу
 	short int priort;//приоритет текущего символа
 
-	if (strpr[0]=='-' && ((strpr[1]>='0' && strpr[1]<='9') || (strpr[1]=='x') || (strpr[1]=='y') || (Contain(strpr[1], dopd, 15) == true)))
+	if (strpr[0]=='-' && ((strpr[1]>='0' && strpr[1]<='9') || (strpr[1]=='x') || (strpr[1]=='y') || (strpr[1] == 't') || (Contain(strpr[1], dopd, 15) == true)))
 		vst(strpr,'0',0);
 	
 	i=-1;

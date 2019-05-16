@@ -26,6 +26,7 @@ public:
 	RGB_MR(double c1, double c2, double c3);
 	double getColor(int k);
 	void setColor(int k, double colori);
+	void setColor(double red, double green, double blue);
 	void operator=(const RGB_MR& right);
 };
 
@@ -87,12 +88,12 @@ public:
 	void SaveData(FILE *file);
 	void LoadData(FILE *file, int ngrid);
 private:
+	double counticolor(double a, double b, int c, int k);
 	void TranslatingToEquvalentOp();
 	void stackmachine();
 	double calculate(char inpoutstr[sostr],int sch, double x, double y, double t, int tii, int indi, int indj);
-	double counticolor(double a, double b, int c, int k);
 
-	bool CheckOutOfLims(int i, int j, double zmini, double zmaxi);//true - если 4 точки не выходят за пределы zmin и zmax {[i,j], [i+1,j], [i,j+1], [i+1,j+1]}
+	bool CheckOutOfLims(int i, int j, double zmini, double zmaxi);//true - если 4 точки не выходят за пределы zmin и zmax {[i,j], [i+1,j], [i,j+1], [i+1,j+1]	
 };
 
 class graph
