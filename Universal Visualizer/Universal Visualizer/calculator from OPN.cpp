@@ -1,4 +1,4 @@
-#include "stdafx.h"
+п»ї#include "stdafx.h"
 #include "OpenGL funcs.h"
 #include "global.h"
 #include "graph.h"
@@ -8,11 +8,11 @@ using namespace std;
 short int np[sostr];
 short int flag_fail_t=-1;
 /*
--1 - нет ошибки
-0 - деление на малое число
-1 - ошибочное возведение в степень
+-1 - РЅРµС‚ РѕС€РёР±РєРё
+0 - РґРµР»РµРЅРёРµ РЅР° РјР°Р»РѕРµ С‡РёСЃР»Рѕ
+1 - РѕС€РёР±РѕС‡РЅРѕРµ РІРѕР·РІРµРґРµРЅРёРµ РІ СЃС‚РµРїРµРЅСЊ
 */
-bool dopustzn=false;//true - если хоть раз вычисление было проведено без ошибки
+bool dopustzn=false;//true - РµСЃР»Рё С…РѕС‚СЊ СЂР°Р· РІС‹С‡РёСЃР»РµРЅРёРµ Р±С‹Р»Рѕ РїСЂРѕРІРµРґРµРЅРѕ Р±РµР· РѕС€РёР±РєРё
 
 /*float powmy(int a,int b)
 {
@@ -27,7 +27,7 @@ bool dopustzn=false;//true - если хоть раз вычисление было проведено без ошибки
 
 /*void Matrix(char inpoutstrii[sostr],int schii)*/
 void graph_func::CalculateMatrix(int ngrid, double &xsha, double &ysha, double &tsha, double xmin, double xmax, double ymin, double ymax, int t1, int t2, unsigned int fps, System::Windows::Forms::ProgressBar^ ProgBar)
-{//расчет матрицы значений (расчет каждого производится во внешней функции calculate)
+{//СЂР°СЃС‡РµС‚ РјР°С‚СЂРёС†С‹ Р·РЅР°С‡РµРЅРёР№ (СЂР°СЃС‡РµС‚ РєР°Р¶РґРѕРіРѕ РїСЂРѕРёР·РІРѕРґРёС‚СЃСЏ РІРѕ РІРЅРµС€РЅРµР№ С„СѓРЅРєС†РёРё calculate)
 	ProgBar->Value=0;
 	dopustzn=false;
 	if (failed==false)
@@ -36,21 +36,21 @@ void graph_func::CalculateMatrix(int ngrid, double &xsha, double &ysha, double &
 		ysha=(ymax-ymin)/ngrid;
 		if (t2>=t1 && isFuncDynamic)
 			tsha=(double)1/fps;
-		if (isFuncDynamic == false)//если функция не динамична инициализировать 1 data
+		if (isFuncDynamic == false)//РµСЃР»Рё С„СѓРЅРєС†РёСЏ РЅРµ РґРёРЅР°РјРёС‡РЅР° РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°С‚СЊ 1 data
 		{
 			ndata = 1;
 			data = new graph_data[ndata];
 			data[0].reinit(ngrid+1);
 		}
-		else//инициализировать data[ndata]
+		else//РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°С‚СЊ data[ndata]
 		{
 			if (t2>=t1)  
 				ndata=fps*(t2-t1)+1;
 			else
 			{
-				failed=true;//по идее это исключение уже обработано в Form1.h, но все же
+				failed=true;//РїРѕ РёРґРµРµ СЌС‚Рѕ РёСЃРєР»СЋС‡РµРЅРёРµ СѓР¶Рµ РѕР±СЂР°Р±РѕС‚Р°РЅРѕ РІ Form1.h, РЅРѕ РІСЃРµ Р¶Рµ
 				GRAPHICS.SetError(7);
-				//MsgBoxShow(L"Недопустимый временной диапазон");/*err7*/
+				//MsgBoxShow(L"РќРµРґРѕРїСѓСЃС‚РёРјС‹Р№ РІСЂРµРјРµРЅРЅРѕР№ РґРёР°РїР°Р·РѕРЅ");/*err7*/
 			}
 			data = new graph_data[ndata];
 			for (int i=0; i<ndata; i++)
@@ -63,7 +63,7 @@ void graph_func::CalculateMatrix(int ngrid, double &xsha, double &ysha, double &
 
 		if(Contain('x',outstr,outsch-1)==false && Contain('y',outstr,outsch-1)==false && Contain('t',outstr,outsch-1)==false)
 		{
-			//функция не содержит переменных(константа.) инициализировать одно значение data
+			//С„СѓРЅРєС†РёСЏ РЅРµ СЃРѕРґРµСЂР¶РёС‚ РїРµСЂРµРјРµРЅРЅС‹С…(РєРѕРЅСЃС‚Р°РЅС‚Р°.) РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°С‚СЊ РѕРґРЅРѕ Р·РЅР°С‡РµРЅРёРµ data
 			data[0].Matrnorm[0][0]=true;
 			data[0].Matr[0][0]=calculate(outstr, outsch-1,0,0,0,0,0,0);
 			if (data[0].Matrnorm[0][0]==true)
@@ -76,20 +76,20 @@ void graph_func::CalculateMatrix(int ngrid, double &xsha, double &ysha, double &
 			{
 				if (flag_fail_t==0)
 					GRAPHICS.SetError(8);
-					//MsgBoxShow(L"Деление на малое число или нуль");/*err8*/
+					//MsgBoxShow(L"Р”РµР»РµРЅРёРµ РЅР° РјР°Р»РѕРµ С‡РёСЃР»Рѕ РёР»Рё РЅСѓР»СЊ");/*err8*/
 				else if(flag_fail_t==1)
 					GRAPHICS.SetError(9);
-					//MsgBoxShow(L"Ошибочное возведение в степень");/*err9*/
+					//MsgBoxShow(L"РћС€РёР±РѕС‡РЅРѕРµ РІРѕР·РІРµРґРµРЅРёРµ РІ СЃС‚РµРїРµРЅСЊ");/*err9*/
 				else
 					GRAPHICS.SetError(10);
-					//MsgBoxShow(L"Нет ни одного допустимого значения функции");/*err10*/
+					//MsgBoxShow(L"РќРµС‚ РЅРё РѕРґРЅРѕРіРѕ РґРѕРїСѓСЃС‚РёРјРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ С„СѓРЅРєС†РёРё");/*err10*/
 				failed=true;
 			}
 			ProgBar->Value=100;
 		}
 		else
 		{
-			unsigned int a=1, ki=0, ksl=ndata*ngrid*ngrid/100*a, ks=ksl;//a- процент разбиения, ki- колво выполненных оперций, ks- следующий порог отображения, ksl- колво операций(4% от всех) от максимума 
+			unsigned int a=1, ki=0, ksl=ndata*ngrid*ngrid/100*a, ks=ksl;//a- РїСЂРѕС†РµРЅС‚ СЂР°Р·Р±РёРµРЅРёСЏ, ki- РєРѕР»РІРѕ РІС‹РїРѕР»РЅРµРЅРЅС‹С… РѕРїРµСЂС†РёР№, ks- СЃР»РµРґСѓСЋС‰РёР№ РїРѕСЂРѕРі РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ, ksl- РєРѕР»РІРѕ РѕРїРµСЂР°С†РёР№(4% РѕС‚ РІСЃРµС…) РѕС‚ РјР°РєСЃРёРјСѓРјР° 
 			for (int ii=0;ii<ndata;ii++)
 				for (int i=0;i<=ngrid;i++)
 					for (int j=0;j<=ngrid;j++)
@@ -120,7 +120,7 @@ void graph_func::CalculateMatrix(int ngrid, double &xsha, double &ysha, double &
 			if (dopustzn==false)
 			{
 				GRAPHICS.SetError(10);
-				//MsgBoxShow(L"Нет ни одного допустимого значения функции");/*err10*/
+				//MsgBoxShow(L"РќРµС‚ РЅРё РѕРґРЅРѕРіРѕ РґРѕРїСѓСЃС‚РёРјРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ С„СѓРЅРєС†РёРё");/*err10*/
 				failed=true;
 			}
 
@@ -131,16 +131,16 @@ void graph_func::CalculateMatrix(int ngrid, double &xsha, double &ysha, double &
 }
 
 double graph_func::calculate(char inpoutstr[sostr], int sch, double x, double y, double t, int tii, int indi, int indj)
-{//функция расчета текущего значения функции из ОПН]
-	flag_fail_t=-1;
-    char c;
-	char symbi[40] = "";//текущий элемент строки
-	short int lengthsymbi=0;//длина элемента строки
-	double res=0;//вспомогательный элемент для числа
-	bool drob;int jn;int jj;
+{//С„СѓРЅРєС†РёСЏ СЂР°СЃС‡РµС‚Р° С‚РµРєСѓС‰РµРіРѕ Р·РЅР°С‡РµРЅРёСЏ С„СѓРЅРєС†РёРё РёР· РћРџРќ]
+	flag_fail_t = -1;
+	char c;
+	char symbi[40] = "";//С‚РµРєСѓС‰РёР№ СЌР»РµРјРµРЅС‚ СЃС‚СЂРѕРєРё
+	short int lengthsymbi = 0;//РґР»РёРЅР° СЌР»РµРјРµРЅС‚Р° СЃС‚СЂРѕРєРё
+	double res = 0;//РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚ РґР»СЏ С‡РёСЃР»Р°
+	bool drob; int jn; int jj;
 	stack<long double> S;
-	//разделить строку на элементы
-	int k=0;//сколько элементов в входной строке
+	//СЂР°Р·РґРµР»РёС‚СЊ СЃС‚СЂРѕРєСѓ РЅР° СЌР»РµРјРµРЅС‚С‹
+	int k=0;//СЃРєРѕР»СЊРєРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ РІС…РѕРґРЅРѕР№ СЃС‚СЂРѕРєРµ
 	np[0]=-1;
 	for (int i=0;i<sch;i++)
 		if (inpoutstr[i]==' ')
@@ -162,7 +162,7 @@ double graph_func::calculate(char inpoutstr[sostr], int sch, double x, double y,
 			c=symbi[0];
 			switch(c)
 			{
-				case '+':{ // если операция сложения
+				case '+':{ // РµСЃР»Рё РѕРїРµСЂР°С†РёСЏ СЃР»РѕР¶РµРЅРёСЏ
 					double op1=S.top();
 					S.pop();
 					double op2=S.top();
@@ -170,7 +170,7 @@ double graph_func::calculate(char inpoutstr[sostr], int sch, double x, double y,
 					double result = op2 + op1;
 					S.push(result);
 				}break;
-				case '-':{ // если операция вычитания
+				case '-':{ // РµСЃР»Рё РѕРїРµСЂР°С†РёСЏ РІС‹С‡РёС‚Р°РЅРёСЏ
 					double op1=S.top();
 					S.pop();
 					double op2=S.top();
@@ -178,7 +178,7 @@ double graph_func::calculate(char inpoutstr[sostr], int sch, double x, double y,
 					double result = op2 - op1;
 					S.push(result);
 				}break;
-				case '*':{ // если операция умножения
+				case '*':{ // РµСЃР»Рё РѕРїРµСЂР°С†РёСЏ СѓРјРЅРѕР¶РµРЅРёСЏ
 					double op1=S.top();
 					S.pop();
 					double op2=S.top();
@@ -186,7 +186,7 @@ double graph_func::calculate(char inpoutstr[sostr], int sch, double x, double y,
 					double result = op2 * op1;
 					S.push(result);
 				}break;
-				case '/':{ // если операция деления
+				case '/':{ // РµСЃР»Рё РѕРїРµСЂР°С†РёСЏ РґРµР»РµРЅРёСЏ
 					double op1=S.top();
 					S.pop();
 					double op2=S.top();
@@ -196,13 +196,13 @@ double graph_func::calculate(char inpoutstr[sostr], int sch, double x, double y,
 						result = op2 / op1;
 					else
 					{
-						flag_fail_t=0;//деление на маленькое число
+						flag_fail_t=0;//РґРµР»РµРЅРёРµ РЅР° РјР°Р»РµРЅСЊРєРѕРµ С‡РёСЃР»Рѕ
 						data[tii].Matrnorm[indi][indj] = false;
 						result = (op1 > 0 && op2 > 0) || (op1 < 0 && op2 < 0) ? DBL_MAX : -DBL_MAX;
 					}
 					S.push(result);
 				}break;
-				case '^':{ // если операция возведения в степень
+				case '^':{ // РµСЃР»Рё РѕРїРµСЂР°С†РёСЏ РІРѕР·РІРµРґРµРЅРёСЏ РІ СЃС‚РµРїРµРЅСЊ
 					double op1 = S.top();
 					S.pop();
 					double op2 = S.top();
@@ -216,7 +216,7 @@ double graph_func::calculate(char inpoutstr[sostr], int sch, double x, double y,
 					}
 					else 
 					{
-						flag_fail_t = 1;//недопустимое возведение в степень
+						flag_fail_t = 1;//РЅРµРґРѕРїСѓСЃС‚РёРјРѕРµ РІРѕР·РІРµРґРµРЅРёРµ РІ СЃС‚РµРїРµРЅСЊ
 						data[tii].Matrnorm[indi][indj] = false;
 					}
 				}break;
@@ -357,11 +357,11 @@ double graph_func::calculate(char inpoutstr[sostr], int sch, double x, double y,
 				case 'x':{S.push(x);}break;
 				case 'y':{S.push(y);}break;
 				case 't':{S.push(t);}break;
-				default: // если цифра
+				default: // РµСЃР»Рё С†РёС„СЂР°
 				{
 					if (c>='0' && c<='9'){
 						res=0;
-						drob=false;//дробная ли часть
+						drob=false;//РґСЂРѕР±РЅР°СЏ Р»Рё С‡Р°СЃС‚СЊ
 						jn=1000;
 						for (int j=0;j<lengthsymbi;j++)
 						{
@@ -377,7 +377,7 @@ double graph_func::calculate(char inpoutstr[sostr], int sch, double x, double y,
 						for (jj=jn;jj<lengthsymbi;jj++)
 						{
 							//res=res+(symbi[jj]-'0')/pow(10,jj-jn+1);
-							double idrob=symbi[jj]-'0';//текущий дробный символ
+							double idrob=symbi[jj]-'0';//С‚РµРєСѓС‰РёР№ РґСЂРѕР±РЅС‹Р№ СЃРёРјРІРѕР»
 							for (int l=jj;l>=jn;l--)
 								idrob/=10;
 							res+=idrob;

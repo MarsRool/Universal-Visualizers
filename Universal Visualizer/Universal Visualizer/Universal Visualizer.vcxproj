@@ -234,10 +234,14 @@
     <ClInclude Include="FormMain.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="graph_data.h" />
+    <ClInclude Include="graph_func.h" />
+    <ClInclude Include="ListOfFuncs.h" />
     <ClInclude Include="MR_3D_Model.h" />
     <ClInclude Include="MR_math.h" />
     <ClInclude Include="OpenGL funcs.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="RGB.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Tests.h" />
     <ClInclude Include="texture.h" />

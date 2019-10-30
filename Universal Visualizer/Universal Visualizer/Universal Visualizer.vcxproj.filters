@@ -37,6 +37,9 @@
     <Filter Include="Заголовочные файлы\Tests">
       <UniqueIdentifier>{fffa9e6f-9892-4d0e-a249-2a442b69ebb2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Заголовочные файлы\of graph\graph classes">
+      <UniqueIdentifier>{0d27ea97-898b-40e2-a15f-b39d1d59b6f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -151,6 +154,18 @@
     </ClInclude>
     <ClInclude Include="Tests.h">
       <Filter>Заголовочные файлы\Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="graph_data.h">
+      <Filter>Заголовочные файлы\of graph\graph classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ListOfFuncs.h">
+      <Filter>Заголовочные файлы\of graph\graph classes</Filter>
+    </ClInclude>
+    <ClInclude Include="RGB.h">
+      <Filter>Заголовочные файлы\of graph\graph classes</Filter>
+    </ClInclude>
+    <ClInclude Include="graph_func.h">
+      <Filter>Заголовочные файлы\of graph\graph classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

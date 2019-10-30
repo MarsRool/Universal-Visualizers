@@ -306,6 +306,7 @@ bool graph::DeleteFunc(int k)//удалить функцию под номером k
 {
 	if (k>=0 && k<nfuncs)
 	{
+		funcs[k].ClearData();
 		for (int i=k; i<nfuncs-1; i++)
 		{
 			funcs[i]=funcs[i+1];
@@ -316,18 +317,6 @@ bool graph::DeleteFunc(int k)//удалить функцию под номером k
 		for (int i = 0; i < nfuncs; i++)
 			funcs[i] = temp[i];
 		delete temp;
-		//funcs = (graph_func*) realloc (funcs, nfuncs*sizeof(graph_func));
-		return true;
-	}
-	else
-		return false;
-}
-
-bool graph::ClearDataFunc(int k)//очистить данные элемента под номером k
-{
-	if (k>=0 && k<nfuncs)
-	{
-		funcs[k].ClearData();
 		return true;
 	}
 	else
