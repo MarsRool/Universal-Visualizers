@@ -22,15 +22,15 @@
     <ProjectGuid>{FAB6F1FD-28DB-4D43-8F75-2B91CA855135}</ProjectGuid>
     <RootNamespace>UniversalVisualizer</RootNamespace>
     <Keyword>ManagedCProj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>true</CLRSupport>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -191,10 +191,29 @@
   <ItemGroup>
     <ClCompile Include="3DModel.cpp" />
     <ClCompile Include="Draw3DObject.cpp" />
-    <ClCompile Include="MR_3D_Model.cpp" />
-    <ClCompile Include="MR_math.cpp" />
+    <ClCompile Include="graph_data.cpp" />
+    <ClCompile Include="graph_func.cpp" />
+    <ClCompile Include="ListOfFuncs.cpp" />
+    <ClCompile Include="MR_Array.cpp" />
+    <ClCompile Include="MR_Basis2D.cpp" />
+    <ClCompile Include="MR_Basis3D.cpp" />
+    <ClCompile Include="MR_CircleTest.cpp" />
+    <ClCompile Include="MR_Line3D.cpp" />
+    <ClCompile Include="MR_Model.cpp" />
+    <ClCompile Include="MR_Edge.cpp" />
+    <ClCompile Include="MR_Face.cpp" />
+    <ClCompile Include="MR_Matrix.cpp" />
+    <ClCompile Include="MR_Object.cpp" />
+    <ClCompile Include="MR_Plane3D.cpp" />
+    <ClCompile Include="MR_Point3D.cpp" />
+    <ClCompile Include="MR_Sector2D.cpp" />
+    <ClCompile Include="MR_SphereTest.cpp" />
+    <ClCompile Include="MR_TestedModel.cpp" />
+    <ClCompile Include="MR_TestedObject.cpp" />
+    <ClCompile Include="MR_Vector3D.cpp" />
     <ClCompile Include="Open3DFile.cpp" />
     <ClCompile Include="Open3DFile_LoadingTextures.cpp" />
+    <ClCompile Include="RGB.cpp" />
     <ClCompile Include="Test Matrix.cpp" />
     <ClCompile Include="Test Model.cpp" />
     <ClCompile Include="texture.cpp" />
@@ -236,10 +255,26 @@
     </ClInclude>
     <ClInclude Include="graph_data.h" />
     <ClInclude Include="graph_func.h" />
+    <ClInclude Include="MR_Array.h" />
+    <ClInclude Include="MR_Basis2D.h" />
+    <ClInclude Include="MR_Basis3D.h" />
+    <ClInclude Include="MR_CircleTest.h" />
+    <ClInclude Include="MR_GeometricalFigure.h" />
+    <ClInclude Include="MR_Line3D.h" />
     <ClInclude Include="ListOfFuncs.h" />
-    <ClInclude Include="MR_3D_Model.h" />
-    <ClInclude Include="MR_math.h" />
+    <ClInclude Include="MR_Model.h" />
+    <ClInclude Include="MR_Edge.h" />
+    <ClInclude Include="MR_Face.h" />
+    <ClInclude Include="MR_Matrix.h" />
+    <ClInclude Include="MR_Object.h" />
+    <ClInclude Include="MR_Point3D.h" />
+    <ClInclude Include="MR_Sector2D.h" />
+    <ClInclude Include="MR_SphereTest.h" />
+    <ClInclude Include="MR_TestedModel.h" />
+    <ClInclude Include="MR_TestedObject.h" />
+    <ClInclude Include="MR_Vector3D.h" />
     <ClInclude Include="OpenGL funcs.h" />
+    <ClInclude Include="MR_Plane3D.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="RGB.h" />
     <ClInclude Include="stdafx.h" />
@@ -276,6 +311,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="DevIL.dll" />
     <None Include="freeglut.dll" />
     <None Include="ILU.dll" />

@@ -25,12 +25,6 @@
     <Filter Include="Заголовочные файлы\of 3D Model">
       <UniqueIdentifier>{91a27752-520a-422f-83e6-16eb8894d74e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Заголовочные файлы\of MR_3D_Model">
-      <UniqueIdentifier>{1e5017d8-6622-47d2-9cad-b41fec0798fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы исходного кода\of MR_3D_Model">
-      <UniqueIdentifier>{3b721073-eda6-4f7c-b19b-4d85efc6027d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Файлы исходного кода\Tests">
       <UniqueIdentifier>{ecb3cb2b-cf3d-4291-bd5b-adc5c0a96978}</UniqueIdentifier>
     </Filter>
@@ -39,6 +33,33 @@
     </Filter>
     <Filter Include="Заголовочные файлы\of graph\graph classes">
       <UniqueIdentifier>{0d27ea97-898b-40e2-a15f-b39d1d59b6f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\of MR_Model">
+      <UniqueIdentifier>{1e5017d8-6622-47d2-9cad-b41fec0798fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\of MR_Model">
+      <UniqueIdentifier>{3b721073-eda6-4f7c-b19b-4d85efc6027d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\of graph\graph classes">
+      <UniqueIdentifier>{ecff76d6-5359-4220-bd10-7e8be9932a40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\of MR_Model\MR helpers">
+      <UniqueIdentifier>{ec4c6ab5-3d8e-48f0-b054-2c7d2e8b2744}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\of MR_Model\MR geometry">
+      <UniqueIdentifier>{aede247d-a5d8-4fa2-a6ae-4cabcbf7345f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\of MR_Model\MR helpers">
+      <UniqueIdentifier>{18993e89-9414-41f0-a228-d8b5cc2fb446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\of MR_Model\MR geometry">
+      <UniqueIdentifier>{05a7202d-9ffb-4db9-a3ed-96ddf2f3998f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\of MR_Model\MR Model">
+      <UniqueIdentifier>{969f0a97-da4f-4ec1-9711-dfb945cfcec5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\of MR_Model\MR Model">
+      <UniqueIdentifier>{e4174a0a-4937-4a4b-a383-c9f628169e91}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -87,17 +108,74 @@
     <ClCompile Include="texture.cpp">
       <Filter>Файлы исходного кода\of 3D Model</Filter>
     </ClCompile>
-    <ClCompile Include="MR_3D_Model.cpp">
-      <Filter>Файлы исходного кода\of MR_3D_Model</Filter>
-    </ClCompile>
-    <ClCompile Include="MR_math.cpp">
-      <Filter>Файлы исходного кода\of MR_3D_Model</Filter>
-    </ClCompile>
     <ClCompile Include="Test Matrix.cpp">
       <Filter>Файлы исходного кода\Tests</Filter>
     </ClCompile>
     <ClCompile Include="Test Model.cpp">
       <Filter>Файлы исходного кода\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="graph_data.cpp">
+      <Filter>Файлы исходного кода\of graph\graph classes</Filter>
+    </ClCompile>
+    <ClCompile Include="RGB.cpp">
+      <Filter>Файлы исходного кода\of graph\graph classes</Filter>
+    </ClCompile>
+    <ClCompile Include="graph_func.cpp">
+      <Filter>Файлы исходного кода\of graph\graph classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ListOfFuncs.cpp">
+      <Filter>Файлы исходного кода\of graph\graph classes</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Array.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Matrix.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Line3D.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Plane3D.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Vector3D.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Point3D.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Edge.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR Model</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Face.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR Model</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Model.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR Model</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Object.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR Model</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_TestedModel.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR Model</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_TestedObject.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR Model</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_SphereTest.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_CircleTest.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Basis2D.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Basis3D.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Sector2D.cpp">
+      <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,12 +224,6 @@
     <ClInclude Include="texture.h">
       <Filter>Заголовочные файлы\of 3D Model</Filter>
     </ClInclude>
-    <ClInclude Include="MR_3D_Model.h">
-      <Filter>Заголовочные файлы\of MR_3D_Model</Filter>
-    </ClInclude>
-    <ClInclude Include="MR_math.h">
-      <Filter>Заголовочные файлы\of MR_3D_Model</Filter>
-    </ClInclude>
     <ClInclude Include="Tests.h">
       <Filter>Заголовочные файлы\Tests</Filter>
     </ClInclude>
@@ -166,6 +238,60 @@
     </ClInclude>
     <ClInclude Include="graph_func.h">
       <Filter>Заголовочные файлы\of graph\graph classes</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Array.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Matrix.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Line3D.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Plane3D.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Point3D.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Vector3D.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Edge.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR Model</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Face.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR Model</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Model.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR Model</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Object.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR Model</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_TestedModel.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR Model</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_TestedObject.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR Model</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_SphereTest.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_CircleTest.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_GeometricalFigure.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR Model</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Basis2D.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Basis3D.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Sector2D.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +339,7 @@
     <None Include="ILU.dll">
       <Filter>Файлы ресурсов</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="freeglut.lib">

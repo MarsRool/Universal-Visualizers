@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MR_math.h"
+#include "MR_Matrix.h"
 #include "Tests.h"
 
 
@@ -8,7 +8,7 @@
 bool Test_MR_Matrix()
 {
 	bool isOk = true;
-	MR::Matrix test(3, 3);
+	MR::Helpers::Matrix test(3, 3);
 	double ** Ptr = new double*[3];
 	Ptr[0] = new double[3]{ 1,3,4 };
 	Ptr[1] = new double[3]{ 0,2,1 };

@@ -10,13 +10,13 @@
 #include "func.h"
 #include "graph.h"
 #include "3DModel.h"
-#include "MR_3D_Model.h"
+#include "MR_TestedModel.h"
 #include "Tests.h"
 
 #include <windows.h>
 using namespace std;
 t3DModel Model;
-MR::Model MR_Model;
+MR::Model::Model *MR_Model = new MR::Model::TestedModel();
 
 float WinWid=600.0;
 float WinHie=600.0;
@@ -341,66 +341,6 @@ double graph_func::counticolor(double a, double b, int c, int k)
 	default: return 0;
 	}
 	
-}
-
-double MR::Object::counticolor(double a, double b, int c, int k)
-{//координаты текущей точки, i - номер цвета (0,1,2) в RGB_MR
-	double res = 0.0;
-	switch (TypeColor)
-	{
-	case 1:
-	{
-		return Color.getColor(k);
-	}break;
-	case 2:
-	case 3://раскраска 4 цветами от dl,dr,ul,ur.
-	{
-		//расчет цвета текущего полигона
-		double n = 1;//(вид сверху)
-		double rastofdl = partofS(a, b, -razm / 2, razm / 2) / razm * n;//dl расстояние от текущей точки до нижнего левого угла(точка 1)
-		double rastoful = partofS(a, b, -razm / 2, -razm / 2) / razm * n;//ul расстояние от текущей точки до верхнего левого угла(точка 2)
-		double rastofur = partofS(a, b, razm / 2, -razm / 2) / razm * n;//ur расстояние от текущей точки до верхнего правого угла(точка 3)
-		double rastofdr = partofS(a, b, razm / 2, razm / 2) / razm * n;//dr расстояние от текущей точки до нижнего правого угла(точка 4)
-		double idl, iul, iur, idr;
-		if (rastofdl > 1)
-			idl = 0;
-		else
-			idl = ColorGrad[0].getColor(k)*(1 - rastofdl);//цвет от нижнего левого угла(1)
-
-		if (rastoful > 1)
-			iul = 0;
-		else
-			iul = ColorGrad[1].getColor(k)*(1 - rastoful);//цвет от верхнего левого угла(2)
-
-		if (rastofur > 1)
-			iur = 0;
-		else
-			iur = ColorGrad[2].getColor(k)*(1 - rastofur);//цвет от верхнего правого угла(3)
-
-		if (rastofdr > 1)
-			idr = 0;
-		else
-			idr = ColorGrad[3].getColor(k)*(1 - rastofdr);//цвет от нижнего правого угла(4)
-
-		res = idl + iul + iur + idr;
-		if (res > 1)
-			return 1.0;
-		else if (res < 0)
-			return 0.0;
-		else
-			return res;
-	}break;
-	case 4:
-	{//ландшафт. радуга от красного до фиолетового сверху вниз.
-		double partofc = 1 - (c + razm / 2) / double(razm);//расстояние до верха в кубе(от 0 до 1)
-		int hi = partofc != 1 ? (int)floor(partofc * 6) : 5;//7 цветов. 6 отрезков. hi-номер отрезка сверху вниз. от 0 до 5. соответственно с верхним цветом отрезка.
-		double mix = (partofc - double(hi)*0.1666667) * 6;
-		res = ColorMix(ColorGradLand[hi].getColor(k), ColorGradLand[hi + 1].getColor(k), mix);
-		return res;
-	}break;
-	default: return 0;
-	}
-
 }
 
 void Text_OpenGL(GLfloat x,GLfloat y,GLfloat z,const unsigned char* text)
@@ -805,7 +745,7 @@ void Initialize()
 {//часть инициализации (инициализация матрицы проекций)
 	ilInit();
 	iluInit();
-	Test_MR_Model(Model, MR_Model);
+	Test_MR_Model(Model, &MR_Model);
 
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 	glMatrixMode(GL_PROJECTION);
@@ -942,7 +882,7 @@ void Draw()
 
 	glRotatef(90, 1.0, 0.0, 0.0);
 	glScalef(5.0, 5.0, 5.0);
-	MR_Model.drawModel();
+	MR_Model->drawModel();
 	/*if (Model.GetLoadedModel() == true)
 		Model.DrawObj(0, 0, 0);*/
 
