@@ -31,7 +31,7 @@ namespace MR
 			///нельзя просто так добавить любые три массива. условие: ребра должны быть построены на гранях.
 			///</summary>
 			Object(const std::list<Face*> &Faces_i, string name = "");
-			Object(const std::list<Geometry::Point3D*> &Points_i, const std::list<Edge*> &Edges_i, const std::list<Face*> &Faces_i, string name = "");//создание объекта из уже инициализированных массивов
+			Object(const std::list<Geometry::Point3DCartesian*> &Points_i, const std::list<Edge*> &Edges_i, const std::list<Face*> &Faces_i, string name = "");//создание объекта из уже инициализированных массивов
 			///<summary>
 			///создает полную копию объекта
 			///</summary>
@@ -43,11 +43,12 @@ namespace MR
 			///</summary>
 			bool isEmpty();
 
-			Geometry::Point3D getPos() const;
-			void setPos(Geometry::Point3D *pointIn);
+			Geometry::Point3DCartesian getPos() const;
+			void setPos(Geometry::Point3DCartesian *pointIn);
 
 			string getStrName() const;
 			void setStrName(string strIn);
+			void getFaces(std::list<Face*> &Faces_out) const { Faces_out = Faces; }
 
 			void drawObject();
 
@@ -56,7 +57,7 @@ namespace MR
 			///</summary>
 			virtual Object& operator = (const Object &objToCopy);
 
-			static void uniquePoints(std::list<Geometry::Point3D*> &list);
+			static void uniquePoints(std::list<Geometry::Point3DCartesian*> &list);
 			static void uniqueEdges(std::list<Edge*> &list);
 
 		protected:
@@ -76,7 +77,7 @@ namespace MR
 			///<summary>
 			///создает полную копию объекта с независимыми тремя множествами! То есть создает отдельное независимое пространство адресов
 			///</summary>
-			void CopyUnique(const std::list<Geometry::Point3D*> &Points_i, const std::list<Edge*> &Edges_i, const std::list<Face*> &Faces_i);
+			void CopyUnique(const std::list<Geometry::Point3DCartesian*> &Points_i, const std::list<Edge*> &Edges_i, const std::list<Face*> &Faces_i);
 			///<summary>
 			///перемещает данные трех множеств в текущий объект, при этом исходный objectToCopy становится пустым
 			///</summary>
@@ -101,7 +102,7 @@ namespace MR
 			///<summary>
 			/// Точки объекта
 			///</summary>
-			std::list<Geometry::Point3D*> Points;
+			std::list<Geometry::Point3DCartesian*> Points;
 			///<summary>
 			/// Ребра объекта
 			///</summary>
@@ -118,7 +119,7 @@ namespace MR
 			///<summary>
 			///позиция объекта
 			///</summary>
-			Geometry::Point3D Position{ 0.0,0.0,0.0 };
+			Geometry::Point3DCartesian Position;
 
 			///<summary>
 			///раскрашивание объекта

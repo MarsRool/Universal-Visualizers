@@ -1,42 +1,45 @@
 #pragma once
 #include "stdafx.h"
 #include "MR_Vector3D.h"
+#include "MR_Angle3D.h"
 
 namespace MR
 {
 	namespace Geometry
 	{
+		///<summary>
+		///класс трехмерного ортонормированного базиса
+		///</summary>
 		class Basis3D
 		{
 		public:
+			///<summary>
+			///создает ортонормированный базис i, j, k
+			///</summary>
+			Basis3D();
+			///<summary>
+			///создает ортонормированный базис по трем векторам
+			///</summary>
 			Basis3D(const Vector3D &vec1, const Vector3D &vec2, const Vector3D &vec3);
+			///<summary>
+			///создает ортонормированный базис по двум векторам. третий равен векторному произведению.
+			///</summary>
 			Basis3D(const Vector3D &vec1, const Vector3D &vec2);
-			/*
+			
 			///<summary>
-			///возвращает угол между векторами в радианах. От 0 до Pi
+			///декартовы координаты в сферические
 			///</summary>
-			double getAngleRad_0ToPi(const Vector3D vec) const;
+			static void CartesianToSpherical(const MR::Helpers::DoublePreciseApproximate &x,
+									const MR::Helpers::DoublePreciseApproximate &y,
+									const MR::Helpers::DoublePreciseApproximate &z,
+									Angle3D &spereAngle);
 			///<summary>
-			///возвращает угол между векторами в радианах. От 0 до 2Pi
+			///сферические координаты в декартовы
 			///</summary>
-			double getAngleRad_0To2Pi(const Vector3D vec) const;
-			///<summary>
-			///возвращает угол между векторами в радианах. От -Pi до Pi
-			///</summary>
-			double getAngleRad_NegPiToPi(const Vector3D vec) const;
-
-			///<summary>
-			///возвращает угол между векторами в радианах. От 0 до Pi
-			///</summary>
-			double getAngleRad_0ToPi(const Vector3D left, const Vector3D & right) const;
-			///<summary>
-			///возвращает угол между векторами в радианах. От 0 до 2Pi
-			///</summary>
-			double getAngleRad_0To2Pi(const Vector3D left, const Vector3D & right) const;
-			///<summary>
-			///возвращает угол между векторами в радианах. От -Pi до Pi
-			///</summary>
-			double getAngleRad_NegPiToPi(const Vector3D left, const Vector3D & right) const;*/
+			static void SphericalToCartesian(const Angle3D &spereAngle,
+				MR::Helpers::DoublePreciseApproximate &x,
+				MR::Helpers::DoublePreciseApproximate &y,
+				MR::Helpers::DoublePreciseApproximate &z);
 		private:
 			Vector3D Ex, Ey, Ez;
 		};

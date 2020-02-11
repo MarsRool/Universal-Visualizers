@@ -2,6 +2,8 @@
 #include "stdafx.h"
 #include "global.h"
 #include "MR_Model.h"
+#include "MR_Basis3D.h"
+#include "MR_Sector3D.h"
 #include "MR_Plane3D.h"
 
 namespace MR
@@ -15,9 +17,9 @@ namespace MR
 		{
 		public:
 			///<summary>
-			///Создание теста точки для модели 
+			///Создание теста точки для модели
 			///<summary>
-			SphereTest(const MR::Model::Model &model, const Geometry::Point3D &point, double radius = smallV);
+			SphereTest(const MR::Model::Model &model, const Geometry::Point3DCartesian &point, double radius = smallV);
 			///<summary>
 			///true- если точка внутри
 			///<summary>
@@ -40,6 +42,10 @@ namespace MR
 			///<summary>
 			bool isSphereIntersectModel();
 			///<summary>
+			///Тест точки на вхождение в модель
+			///<summary>
+			void test();
+			///<summary>
 			///Радиус тестирующей сферы
 			///<summary>
 			double Radius = smallV;
@@ -50,11 +56,15 @@ namespace MR
 			///<summary>
 			///Тестируемая точка
 			///</summary>
-			const Geometry::Point3D TestPoint;
+			const Geometry::Point3DCartesian TestPoint;
 			///<summary>
 			///true- если точка внутри. По умолчанию, она снаружи
 			///<summary>
 			bool IsInside = false;
+			///<summary>
+			///true- если тест корректный.
+			///<summary>
+			bool isOk;
 			/*///<summary>
 			///!!!Продумать. Объекты, в которые входит точка
 			///<summary>

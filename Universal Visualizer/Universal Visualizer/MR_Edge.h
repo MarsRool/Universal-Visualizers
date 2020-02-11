@@ -21,7 +21,7 @@ namespace MR
 		class Edge
 		{
 		public:
-			Edge(const Geometry::Point3D *Point1_i, const Geometry::Point3D *Point2_i, short int count = 0);
+			Edge(const Geometry::Point3DCartesian *Point1_i, const Geometry::Point3DCartesian *Point2_i, short int count = 0);
 			///<summary>
 			///создает неполную копию ребра
 			///</summary>
@@ -33,7 +33,7 @@ namespace MR
 			///</summary>
 			bool existing() const;
 			short int getCountIncludingInFaces() const { return CountIncludingInFaces; }
-			void getPoints(Geometry::Point3D **Point1_i, Geometry::Point3D **Point2_i);
+			void getPoints(Geometry::Point3DCartesian **Point1_i, Geometry::Point3DCartesian **Point2_i);
 			Geometry::Vector3D getVector12() const;
 			///<summary>
 			///находит адрес адреса ребра в массиве ребер. В случае не нахождения вернет nullptr
@@ -42,7 +42,7 @@ namespace MR
 			///<summary>
 			///найти общую точку всех ребер, если такая есть. В случае не нахождения вернет nullptr. Проверка по адресу!
 			///</summary>
-			friend Geometry::Point3D * getCommonPointInEdges(const std::list<Edge*> &Edges);
+			friend Geometry::Point3DCartesian * getCommonPointInEdges(const std::list<Edge*> &Edges);
 
 			///<summary>
 			///проверка на равенство по значению
@@ -71,9 +71,9 @@ namespace MR
 		private:
 			bool check() const;
 
-			void CopyNotUnique(const Geometry::Point3D *Point1_i, const Geometry::Point3D *Point2_i, short int count = 0);
+			void CopyNotUnique(const Geometry::Point3DCartesian *Point1_i, const Geometry::Point3DCartesian *Point2_i, short int count = 0);
 
-			Geometry::Point3D *Point1 = nullptr, *Point2 = nullptr;
+			Geometry::Point3DCartesian *Point1 = nullptr, *Point2 = nullptr;
 			//количество граней, которые содержат ребро. добавляется при формировании модели на этапе формирования массива граней. Сначала равна 0.
 			short int CountIncludingInFaces = 0;
 		};

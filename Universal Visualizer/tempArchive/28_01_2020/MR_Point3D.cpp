@@ -21,12 +21,12 @@ MR::Geometry::Point3D::Point3D(const Point3D & PointToCopy)
 		throw std::exception("Wrong Point");
 }
 
-bool MR::Geometry::equalPoints(const Point3D *point_left, const Point3D *point_right)
+const bool MR::Geometry::equalPoints(const Point3D *point_left, const Point3D *point_right)
 {
 	return (point_left->X == point_right->X && point_left->Y == point_right->Y && point_left->Z == point_right->Z);
 }
 
-const bool MR::Geometry::Point3D::operator==(const Point3D &point_right)
+const bool MR::Geometry::Point3D::operator==(const Point3D &point_right) const
 {
 	int test = 0;
 	bool result = equalPoints(this, &point_right);

@@ -1,18 +1,19 @@
 #include "stdafx.h"
-#include "MR_Line3D.h"
 #include "global.h"
+#include "MR_Line3D.h"
+#include "MR_Point3D_Cartesian.h"
 
 MR::Geometry::Line3D::Line3D()
 {
 }
 
-MR::Geometry::Line3D::Line3D(const Vector3D &Direction_i, const Point3D &Point_i)
+MR::Geometry::Line3D::Line3D(const Vector3D &Direction_i, const Point3DCartesian &Point_i)
 {
 	Direction = Direction_i;
 	Point = Point_i;
 }
 
-MR::Geometry::Line3D::Line3D(const Point3D &Point1, const Point3D &Point2)
+MR::Geometry::Line3D::Line3D(const Point3DCartesian &Point1, const Point3DCartesian &Point2)
 {
 	Direction.setVector(Point1, Point2);
 	Point = Point1;
@@ -38,7 +39,7 @@ bool MR::Geometry::Line3D::operator==(const Line3D & right) const
 		(distance(right) < smallV));
 }
 
-double MR::Geometry::Line3D::distance(const Point3D & point) const
+double MR::Geometry::Line3D::distance(const Point3DCartesian & point) const
 {
 	return (vectorProduct(Geometry::Vector3D(Point, point), Direction).getLength() / Direction.getLength());
 }
@@ -56,24 +57,24 @@ double MR::Geometry::Line3D::distance(const Line3D & line) const
 	}
 }
 
-MR::Geometry::Point3D MR::Geometry::Line3D::calculateX(double x) const
+MR::Geometry::Point3DCartesian MR::Geometry::Line3D::calculateX(double x) const
 {
 	return calculateT((x - Point.x()) / Direction.vx());
 }
 
-MR::Geometry::Point3D MR::Geometry::Line3D::calculateY(double y) const
+MR::Geometry::Point3DCartesian MR::Geometry::Line3D::calculateY(double y) const
 {
 	return calculateT((y - Point.y()) / Direction.vy());
 }
 
-MR::Geometry::Point3D MR::Geometry::Line3D::calculateZ(double z) const
+MR::Geometry::Point3DCartesian MR::Geometry::Line3D::calculateZ(double z) const
 {
 	return calculateT((z - Point.z()) / Direction.vz());
 }
 
-MR::Geometry::Point3D MR::Geometry::Line3D::calculateT(double t) const
+MR::Geometry::Point3DCartesian MR::Geometry::Line3D::calculateT(double t) const
 {
-	return Point3D(
+	return Point3DCartesian(
 		t*Direction.vx() + Point.x(),
 		t*Direction.vy() + Point.y(),
 		t*Direction.vz() + Point.z()

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "conversions.h"
 #include "MR_Model.h"
+#include "MR_Point3D_Cartesian.h"
 
 MR::Model::Model::Model()
 {
@@ -19,11 +20,11 @@ void MR::Model::Model::addFrom3DModel(const t3DModel & Model)
 	test.push_back(new Edge(new Point3D(46.197060, -45.805752, 47.203850), new Point3D(-46.658493, - 45.805752, 47.203850)));
 	test.unique(equalEdges);*/
 	//сначала создаем три массива: точек, ребер и граней
-	std::vector<Geometry::Point3D*> Points_v;
+	std::vector<Geometry::Point3DCartesian*> Points_v;
 	std::vector<Edge*> Edges_v;
 	std::vector<Face*> Faces_v;
 	
-	std::list<Geometry::Point3D*> Points;
+	std::list<Geometry::Point3DCartesian*> Points;
 	std::list<Edge*> Edges;
 	std::list<Face*> Faces;
 
@@ -47,14 +48,14 @@ void MR::Model::Model::addFrom3DModel(const t3DModel & Model)
 	{
 		list<Edge*> edges_i;
 		Edge* edge_j;
-		Geometry::Point3D* points_j[3];
+		Geometry::Point3DCartesian* points_j[3];
 		for (unsigned int l = 1; l < Objects.size(); l++)
 		{
 			Edges_v.clear();
 			Faces_v.clear();
 			Points_v.clear();
 			for (unsigned int i = 1; i < pVerts.size(); i++)//заполнение точек
-				Points_v.push_back(new Geometry::Point3D(pVerts[i].x, pVerts[i].y, pVerts[i].z));
+				Points_v.push_back(new Geometry::Point3DCartesian(pVerts[i].x, pVerts[i].y, pVerts[i].z));
 			for (unsigned int i = 1; i < Objects[l].pFaces.size(); i++)//для каждой грани:
 			{
 				for (int j = 0; j < 3; j++)
@@ -75,14 +76,14 @@ void MR::Model::Model::addFrom3DModel(const t3DModel & Model)
 				Faces_v.push_back(new Face(edges_i));
 			}
 
-			for (Geometry::Point3D *p : Points_v)
+			for (Geometry::Point3DCartesian *p : Points_v)
 				Points.push_back(p);
 			for (Edge *e : Edges_v)
 				Edges.push_back(e);
 			for (Face *f : Faces_v)
 				Faces.push_back(f);
 			this->Objects.push_back(new Object(Points, Edges, Faces, Objects[l].strName));
-			for (Geometry::Point3D *p : Points_v)
+			for (Geometry::Point3DCartesian *p : Points_v)
 				delete p;
 			for (Edge *e : Edges_v)
 				delete e;

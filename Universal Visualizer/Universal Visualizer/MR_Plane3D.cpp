@@ -1,25 +1,40 @@
 #include "stdafx.h"
 #include "MR_Plane3D.h"
+#include "MR_Face.h"
 #include "global.h"
+#include "MR_Point3D_Cartesian.h"
 
-MR::Geometry::Plane3D::Plane3D(const Vector3D &Normal_i, const Point3D &Point_i)
+MR::Geometry::Plane3D::Plane3D(const Vector3D &Normal_i, const Point3DCartesian &Point_i)
 {
 	Normal = Normal_i;
 	Point = Point_i;
 	Normal.normalize();
 }
 
-MR::Geometry::Plane3D::Plane3D(const Vector3D &Vector1, const Vector3D &Vector2, const Point3D &Point_i)
+MR::Geometry::Plane3D::Plane3D(const Vector3D &Vector1, const Vector3D &Vector2, const Point3DCartesian &Point_i)
 {
 	Normal = vectorProduct(Vector1, Vector2);
 	Point = Point_i;
 	Normal.normalize();
 }
 
-MR::Geometry::Plane3D::Plane3D(const Point3D &Point1, const Point3D &Point2, const Point3D &Point3)
+MR::Geometry::Plane3D::Plane3D(const Point3DCartesian &Point1, const Point3DCartesian &Point2, const Point3DCartesian &Point3)
 {
 	Normal = vectorProduct(Vector3D(Point1, Point2), Vector3D(Point1, Point3));
 	Point = Point1;
+	Normal.normalize();
+}
+
+MR::Geometry::Plane3D::Plane3D(const Model::Face & face)
+{
+	std::list<Point3DCartesian*> tempPoints;
+	face.getPoints(tempPoints);
+	if (tempPoints.size() < 3)
+		throw exception("Wrong Plane3D");
+	std::list<Point3DCartesian*>::const_iterator iter = tempPoints.cbegin();
+	Point3DCartesian *p1 = *iter++, *p2 = *iter++, *p3 = *iter++;
+	Normal = vectorProduct(Vector3D(*p1, *p2), Vector3D(*p1, *p3));
+	Point = *p1;
 	Normal.normalize();
 }
 
@@ -33,7 +48,7 @@ MR::Geometry::Plane3D::~Plane3D()
 {
 }
 
-double MR::Geometry::Plane3D::distance(const Point3D &Point_i) const
+double MR::Geometry::Plane3D::distance(const Point3DCartesian &Point_i) const
 {
 	double D = -(Normal.vx() * Point.x()) - (Normal.vy() * Point.y()) - (Normal.vz() * Point.z());
 	return ((std::abs((Normal.vx() * Point_i.x()) +
@@ -42,7 +57,7 @@ double MR::Geometry::Plane3D::distance(const Point3D &Point_i) const
 		Normal.getLength());
 }
 
-short int MR::Geometry::Plane3D::whereIsPoint(const Point3D &Point_i) const
+short int MR::Geometry::Plane3D::whereIsPoint(const Point3DCartesian &Point_i) const
 {//1 - снаружи, 0 - на плоскости, -1 - внутри плоскости
 	double result;
 	double D = -(Normal.vx() * Point.x()) - (Normal.vy() * Point.y()) - (Normal.vz() * Point.z());
@@ -58,10 +73,10 @@ short int MR::Geometry::Plane3D::whereIsPoint(const Point3D &Point_i) const
 	return 0;
 }
 
-bool MR::Geometry::Plane3D::istDotsInBothSides(const std::list<Point3D*> &Points) const
+bool MR::Geometry::Plane3D::istDotsInBothSides(const std::list<Point3DCartesian*> &Points) const
 {
 	bool ist_outside = false, ist_inside = false;
-	for (Point3D *p: Points)
+	for (Point3DCartesian *p: Points)
 		if (ist_outside && ist_inside)
 			break;
 		else
@@ -74,14 +89,15 @@ bool MR::Geometry::Plane3D::istDotsInBothSides(const std::list<Point3D*> &Points
 	return (ist_outside && ist_inside);
 }
 
-bool MR::Geometry::Plane3D::isInPlane(const Point3D & point)
+bool MR::Geometry::Plane3D::isInPlane(const Point3DCartesian & point)
 {
 	return (distance(point) < smallV);
 }
 
 bool MR::Geometry::Plane3D::isInPlane(const Line3D & line)
 {
-	return ((distance(line.getPoint()) < smallV) && (distance(line.getPoint() + Point3D(1.0, 1.0, 1.0)) < smallV));
+
+	return ((distance(line.getPoint()) < smallV) && (distance(line.getPoint() + Point3DCartesian(1.0, 1.0, 1.0)) < smallV));
 }
 
 bool MR::Geometry::Plane3D::operator==(const Plane3D & plane)

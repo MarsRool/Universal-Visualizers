@@ -38,10 +38,11 @@ namespace MR
 			static bool istEdgesInPlane(const std::list<Edge*> &Edges_i);
 			void getEdges(std::list<Edge*> &Edges_out) const { Edges_out = Edges; }
 			void setEdges(const std::list<Edge*> &Edges_in) { Edges = Edges_in; }
-			void getPoints(std::list<Geometry::Point3D*> &Points_out) const { Points_out = Points; }
-			void setEdges(const std::list<Geometry::Point3D*> &Points_in) { Points = Points_in; }
+			void getPoints(std::list<Geometry::Point3DCartesian*> &Points_out) const { Points_out = Points; }
+			void setEdges(const std::list<Geometry::Point3DCartesian*> &Points_in) { Points = Points_in; }
 			const Geometry::Vector3D &getNormal() const { return Normal; }
-			const Geometry::Point3D &getCenterOfMass() { return CenterOfMass; }
+			const Geometry::Point3DCartesian &getCenterOfMass() { return CenterOfMass; }
+			void getPointsPath(std::list<MR::Geometry::Point3DCartesian*> &points) const;
 
 			bool flag() const { return Flag; }
 			void setFlag(bool flag_i) { Flag = flag_i; }
@@ -69,7 +70,7 @@ namespace MR
 			///<summary>
 			///массив вершин
 			///<summary>
-			std::list<Geometry::Point3D*> Points;
+			std::list<Geometry::Point3DCartesian*> Points;
 			///<summary>
 			///массив ребер
 			///<summary>
@@ -85,7 +86,7 @@ namespace MR
 			///<summary>
 			///центр масс
 			///<summary>
-			Geometry::Point3D CenterOfMass = { 0.0, 0.0, 0.0 };
+			Geometry::Point3DCartesian CenterOfMass;
 			///<summary>
 			///true- если уже участвовал в рекурсивном тесте на 3D модель
 			///<summary>

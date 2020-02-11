@@ -98,7 +98,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <Optimization>Disabled</Optimization>
+      <Optimization>Full</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -190,10 +190,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3DModel.cpp" />
+    <ClCompile Include="DoublePreciseApproximate.cpp" />
     <ClCompile Include="Draw3DObject.cpp" />
     <ClCompile Include="graph_data.cpp" />
     <ClCompile Include="graph_func.cpp" />
     <ClCompile Include="ListOfFuncs.cpp" />
+    <ClCompile Include="MR_Angle2D.cpp" />
+    <ClCompile Include="MR_Angle3D.cpp" />
     <ClCompile Include="MR_Array.cpp" />
     <ClCompile Include="MR_Basis2D.cpp" />
     <ClCompile Include="MR_Basis3D.cpp" />
@@ -205,8 +208,10 @@
     <ClCompile Include="MR_Matrix.cpp" />
     <ClCompile Include="MR_Object.cpp" />
     <ClCompile Include="MR_Plane3D.cpp" />
-    <ClCompile Include="MR_Point3D.cpp" />
+    <ClCompile Include="MR_Point3D_Cartesian.cpp" />
+    <ClCompile Include="MR_Point3D_Spherical.cpp" />
     <ClCompile Include="MR_Sector2D.cpp" />
+    <ClCompile Include="MR_Sector3D.cpp" />
     <ClCompile Include="MR_SphereTest.cpp" />
     <ClCompile Include="MR_TestedModel.cpp" />
     <ClCompile Include="MR_TestedObject.cpp" />
@@ -255,6 +260,9 @@
     </ClInclude>
     <ClInclude Include="graph_data.h" />
     <ClInclude Include="graph_func.h" />
+    <ClInclude Include="DoublePreciseApproximate.h" />
+    <ClInclude Include="MR_Angle2D.h" />
+    <ClInclude Include="MR_Angle3D.h" />
     <ClInclude Include="MR_Array.h" />
     <ClInclude Include="MR_Basis2D.h" />
     <ClInclude Include="MR_Basis3D.h" />
@@ -262,13 +270,16 @@
     <ClInclude Include="MR_GeometricalFigure.h" />
     <ClInclude Include="MR_Line3D.h" />
     <ClInclude Include="ListOfFuncs.h" />
+    <ClInclude Include="MR_Math.h" />
     <ClInclude Include="MR_Model.h" />
     <ClInclude Include="MR_Edge.h" />
     <ClInclude Include="MR_Face.h" />
     <ClInclude Include="MR_Matrix.h" />
     <ClInclude Include="MR_Object.h" />
-    <ClInclude Include="MR_Point3D.h" />
+    <ClInclude Include="MR_Point3D_Cartesian.h" />
+    <ClInclude Include="MR_Point3D_Spherical.h" />
     <ClInclude Include="MR_Sector2D.h" />
+    <ClInclude Include="MR_Sector3D.h" />
     <ClInclude Include="MR_SphereTest.h" />
     <ClInclude Include="MR_TestedModel.h" />
     <ClInclude Include="MR_TestedObject.h" />
@@ -311,7 +322,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="DevIL.dll" />
     <None Include="freeglut.dll" />
     <None Include="ILU.dll" />

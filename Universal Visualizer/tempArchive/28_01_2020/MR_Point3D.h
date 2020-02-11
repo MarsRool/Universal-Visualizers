@@ -5,7 +5,10 @@ namespace MR
 {
 	namespace Geometry
 	{
-		class Point2D//MR 2D точка
+		///<summary>
+		///MR 2D точка
+		///</summary>
+		class Point2D
 		{
 		private:
 			double X, Y;
@@ -23,8 +26,8 @@ namespace MR
 			Point3D(const Point3D &PointToCopy);
 			~Point3D() {}//пустой деструктор.
 
-			friend bool equalPoints(const Point3D *point_left, const Point3D *point_right);
-			const bool operator == (const Point3D &point_right);
+			const friend bool equalPoints(const Point3D *point_left, const Point3D *point_right);
+			const bool operator == (const Point3D &point_right) const;
 			Point3D &operator = (const Point3D &point_right);
 			Point3D operator + (const Point3D &point_right) const;
 			Point3D operator - (const Point3D &point_right) const;

@@ -28,7 +28,7 @@ namespace MR
 			///<summary>
 			///нельзя просто так добавить любые три массива. условие: ребра должны быть построены на гранях. (нет тестирования)
 			///</summary>
-			TestedObject(const std::list<Geometry::Point3D*> &Points_i, const std::list<Edge*> &Edges_i, const std::list<Face*> &Faces_i, string name = "");
+			TestedObject(const std::list<Geometry::Point3DCartesian*> &Points_i, const std::list<Edge*> &Edges_i, const std::list<Face*> &Faces_i, string name = "");
 			///<summary>
 			///создает полную копию объекта(если копируемый объект протестирован, копия считается протестированной, нет - нет)
 			///</summary>

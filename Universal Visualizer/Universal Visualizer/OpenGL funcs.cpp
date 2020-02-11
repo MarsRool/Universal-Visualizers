@@ -745,6 +745,7 @@ void Initialize()
 {//часть инициализации (инициализация матрицы проекций)
 	ilInit();
 	iluInit();
+	MR::MR_Test();
 	Test_MR_Model(Model, &MR_Model);
 
 	glClearColor(1.0, 1.0, 1.0, 1.0);

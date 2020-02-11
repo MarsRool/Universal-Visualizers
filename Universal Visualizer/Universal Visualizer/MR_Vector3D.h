@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#include "MR_Point3D.h"
+#include "MR_Point3D_Cartesian.h"
 
 namespace MR
 {
@@ -11,11 +11,11 @@ namespace MR
 		public:
 			Vector3D();
 			Vector3D(double Vx_i, double Vy_i, double Vz_i);
-			Vector3D(const Point3D &point1, const Point3D &point2);
+			Vector3D(const Point3DCartesian &point1, const Point3DCartesian &point2);
 			Vector3D(const Vector3D &vectorToCopy);
 			~Vector3D();
 
-			void setVector(const Point3D &point1, const Point3D &point2);
+			void setVector(const Point3DCartesian &point1, const Point3DCartesian &point2);
 			void setVector(double Vx_i, double Vy_i, double Vz_i);
 			void getVector(double &Vx_i, double &Vy_i, double &Vz_i) const;
 			double getLength() const;

@@ -10,7 +10,7 @@ MR::Model::TestedObject::TestedObject(const std::list<Face*>& Faces_i, string na
 {
 }
 
-MR::Model::TestedObject::TestedObject(const std::list<Geometry::Point3D*>& Points_i, const std::list<Edge*>& Edges_i, const std::list<Face*>& Faces_i, string name) : Object(Points_i, Edges_i, Faces_i, name), IsTested(false)
+MR::Model::TestedObject::TestedObject(const std::list<Geometry::Point3DCartesian*>& Points_i, const std::list<Edge*>& Edges_i, const std::list<Face*>& Faces_i, string name) : Object(Points_i, Edges_i, Faces_i, name), IsTested(false)
 {
 }
 

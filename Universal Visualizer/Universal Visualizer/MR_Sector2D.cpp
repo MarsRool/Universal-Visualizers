@@ -1,47 +1,72 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "MR_Sector2D.h"
 
-MR::Geometry::Sector2D::Sector2D(double angle1, double angle2, double angleMiddle)
+MR::Geometry::Sector2D::Sector2D(const Angle2D &angle1, const Angle2D &angle2, const Angle2D &angleMiddle)
 {
 	this->angle1 = (angle1 < angle2) ? angle1 : angle2;
 	this->angle2 = (angle1 > angle2) ? angle1 : angle2;
 	correct(angleMiddle);
-	if (!check())
-		throw std::exception("Wrong Sector2D");
 }
 
 bool MR::Geometry::Sector2D::isZero()
 {
-	return (std::abs(angle1 - angle2) < smallV);
+	//справа нулевой угол с таким же типом точности, как у любого угла, например 1
+	return (angle1 == angle2) && (angle1 < angle2);
 }
 
 bool MR::Geometry::Sector2D::isFullCircle()
 {
-	return (std::abs(angle2 - angle1 - 2 * PI) < smallV);
+	return ((angle2 - angle1) == Angle2D(MR::Helpers::DoublePreciseApproximate(360, smallV, angle1.getAccuracyType())) ||
+			(angle1 == angle2) && (angle1 >= angle2));
 }
 
 bool MR::Geometry::Sector2D::isSectorIntersect(const Sector2D & sec) const
 {
-	if (angle2 > sec.angle1 || sec.angle2 > angle1)
+	MR::Helpers::DoublePreciseApproximate thisAngle1, thisAngle2, secAngle1, secAngle2;
+	AngleToDegreeDiapazon(thisAngle1, thisAngle2);
+	AngleToDegreeDiapazon(secAngle1, secAngle2);
+	if (thisAngle2 > secAngle1 || secAngle2 > thisAngle1)
 		return true;
 	return false;
 }
 
-bool MR::Geometry::Sector2D::compareSectors(const Sector2D * a, const Sector2D * b)
+bool MR::Geometry::Sector2D::isSectorTangential(const Sector2D & sec) const
 {
-	if (a != nullptr && b != nullptr)
-		return (a->angle1 < b->angle2);
+	if (angle1 == sec.angle1 || sec.angle2 == angle2 || angle2 == sec.angle1 || sec.angle2 == angle1)
+		return true;
 	return false;
 }
 
 MR::Geometry::Sector2D * MR::Geometry::Sector2D::integrateSectors(const Sector2D & sec1, const Sector2D & sec2)
 {
-	if (sec1.isSectorIntersect(sec2))
+	if (sec1.isSectorAdjacent(sec2))
 	{
-		double angle1 = (sec1.angle1 < sec2.angle1) ? sec1.angle1 : sec2.angle1;
-		double angle2 = (sec1.angle2 > sec2.angle2) ? sec1.angle2 : sec2.angle2;
-		double angleMiddle = (angle1 + angle2) / 2.0;
-		return new Sector2D(angle1, angle2, angleMiddle);
+		MR::Helpers::DoublePreciseApproximate sec1Angle1, sec1Angle2, sec2Angle1, sec2Angle2;
+		sec1.AngleToDegreeDiapazon(sec1Angle1, sec1Angle2);
+		sec2.AngleToDegreeDiapazon(sec2Angle1, sec2Angle2);
+		int i = 3;
+		while (sec1Angle2 > sec2Angle1 && i > 0)
+		{
+			sec2Angle1 = sec2Angle1 + 360.0;
+			sec2Angle2 = sec2Angle2 + 360.0;
+			i--;
+		}
+		i = 3;
+		while (sec2Angle2 > sec1Angle1 && i > 0)
+		{
+			sec1Angle1 = sec1Angle1 + 360.0;
+			sec1Angle2 = sec1Angle2 + 360.0;
+			i--;
+		}
+		if (sec1Angle2 == sec2Angle1 || sec2Angle2 == sec1Angle1)
+		{
+			MR::Helpers::DoublePreciseApproximate angle1 = (sec1Angle1 < sec2Angle1) ? sec1Angle1 : sec2Angle1;
+			MR::Helpers::DoublePreciseApproximate angle2 = (sec1Angle2 > sec2Angle2) ? sec1Angle2 : sec2Angle2;
+			MR::Helpers::DoublePreciseApproximate angleMiddle = (angle1 + angle2) / 2.0;
+			return new Sector2D(Angle2D(angle1), Angle2D(angle2), Angle2D(angleMiddle));
+		}
+		else
+			return nullptr;
 	}
 	else
 		return nullptr;
@@ -49,60 +74,57 @@ MR::Geometry::Sector2D * MR::Geometry::Sector2D::integrateSectors(const Sector2D
 
 void MR::Geometry::Sector2D::integrateSectors(std::list<Sector2D*>& sectors)
 {
-	Sector2D* last = *sectors.cbegin(), *dthis, *integrated_t;
-	std::list<Sector2D*>::iterator iter = ++sectors.begin(), lastIter = sectors.begin();
-	while (iter!=sectors.end())
+	if (sectors.size() > 0)
 	{
-		dthis = *iter;
-		if ((integrated_t = integrateSectors(*last, *dthis)) != nullptr)
+		Sector2D *result = *sectors.cbegin(), *temp;
+		sectors.pop_front();
+		while (sectors.size() > 0)
 		{
-			delete dthis;
-			delete last;
-			sectors.erase(lastIter);
-			lastIter = iter = sectors.erase(iter);
-			sectors.insert(iter, integrated_t);
-			lastIter--;
-			last = *lastIter;
-			continue;
-		}
-		last = *iter;
-		iter++; lastIter++;
-	}
-}
-
-void MR::Geometry::Sector2D::sortSectors(std::list<Sector2D*>& sectors)
-{
-	Sector2D* temp;
-	for (std::list<Sector2D*>::iterator s_i = sectors.begin(); s_i != sectors.end(); s_i++)
-	{
-		for (std::list<Sector2D*>::iterator s_j = sectors.begin(); s_j != sectors.end(); s_j++)
-			if (s_i != s_j && compareSectors(*s_i, *s_j))
+			bool foundInFor = false;
+			for (std::list<Sector2D*>::iterator iter = sectors.begin(); iter != sectors.end(); iter++)
 			{
-				temp = *s_j;
-				s_j = sectors.erase(s_j);
-				s_j = sectors.insert(s_i, temp);
+				temp = result->integrateSectors(*result, **iter);
+				if (temp != nullptr)
+				{
+					delete result;
+					delete *iter;
+					result = temp;
+					foundInFor = true;
+					iter = sectors.erase(iter);
+					if (iter == sectors.end())
+						break;
+					//при этом произойдет перескакивание через один элемент, но об этом можно не париться,
+					//потому что мы в while и мы пройдемся в итоге по всем элементам,
+					//пока объединение не закончится либо элементы не будут объединяться
+				}
 			}
+			if (foundInFor == false)
+				break;
+		}
+		sectors.push_back(result);
 	}
 }
 
-void MR::Geometry::Sector2D::correct(double angleMiddle)
+void MR::Geometry::Sector2D::AngleToDegreeDiapazon(MR::Helpers::DoublePreciseApproximate & angle1Out, MR::Helpers::DoublePreciseApproximate & angle2Out) const
+{
+	angle1Out = MR::Helpers::DoublePreciseApproximate(this->angle1.getAngleDegree());
+	angle2Out = MR::Helpers::DoublePreciseApproximate(this->angle2.getAngleDegree());
+	if (angle1Out > angle2Out)
+		angle1Out = angle1Out - 360.0;
+}
+
+void MR::Geometry::Sector2D::DegreeDiapazonToAngle(MR::Helpers::DoublePreciseApproximate angle1In, MR::Helpers::DoublePreciseApproximate angle2In)
+{
+	angle1.setAngleDegree(angle1In());
+	angle2.setAngleDegree(angle2In());
+}
+
+void MR::Geometry::Sector2D::correct(const Angle2D &angleMiddle)
 {
 	if (angle1 > angleMiddle && angle2 > angleMiddle || angle1 < angleMiddle && angle2 < angleMiddle)
 	{
-		angle2 -= 2 * PI;
-		double temp = angle1;
+		Angle2D temp = angle1;
 		angle1 = angle2;
 		angle2 = temp;
 	}
-	if (std::abs(angle1) < smallV)
-		angle1 = 0;
-	if (std::abs(angle2) < smallV)
-		angle2 = 0;
-}
-
-bool MR::Geometry::Sector2D::check()
-{
-	if ((angle1 < angle2) && (angle1 < 2 * PI + smallV) && (angle2 >= 0) && (angle2 < 2 * PI + smallV))
-		return true;
-	return false;
 }

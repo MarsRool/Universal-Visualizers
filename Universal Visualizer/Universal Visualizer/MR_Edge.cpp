@@ -2,7 +2,7 @@
 #include "conversions.h"
 #include "MR_Edge.h"
 
-MR::Model::Edge::Edge(const Geometry::Point3D *Point1_i, const Geometry::Point3D *Point2_i, short int count)
+MR::Model::Edge::Edge(const Geometry::Point3DCartesian *Point1_i, const Geometry::Point3DCartesian *Point2_i, short int count)
 {
 	CopyNotUnique(Point1_i, Point2_i, count);
 	if (!check())
@@ -29,7 +29,7 @@ bool MR::Model::Edge::existing() const
 	return false;
 }
 
-void MR::Model::Edge::getPoints(Geometry::Point3D ** Point1_i, Geometry::Point3D ** Point2_i)
+void MR::Model::Edge::getPoints(Geometry::Point3DCartesian ** Point1_i, Geometry::Point3DCartesian ** Point2_i)
 {
 	if (Point1_i != nullptr && Point2_i != nullptr)
 	{
@@ -91,14 +91,14 @@ bool MR::Model::Edge::check() const
 	return true;
 }
 
-void MR::Model::Edge::CopyNotUnique(const Geometry::Point3D *Point1_i, const Geometry::Point3D *Point2_i, short int count)
+void MR::Model::Edge::CopyNotUnique(const Geometry::Point3DCartesian *Point1_i, const Geometry::Point3DCartesian *Point2_i, short int count)
 {
 	if (Point1 != nullptr)
 		Point1->operator--();
 	if (Point2 != nullptr)
 		Point2->operator--();
-	Point1 = const_cast<Geometry::Point3D*>(Point1_i);
-	Point2 = const_cast<Geometry::Point3D*>(Point2_i);
+	Point1 = const_cast<Geometry::Point3DCartesian*>(Point1_i);
+	Point2 = const_cast<Geometry::Point3DCartesian*>(Point2_i);
 	Point1->operator++();
 	Point2->operator++();
 	CountIncludingInFaces = count;
@@ -113,7 +113,7 @@ MR::Model::Edge * MR::Model::searchEdge(const std::list<Edge*> &Edges, const Edg
 	return nullptr;
 }
 
-MR::Geometry::Point3D * MR::Model::getCommonPointInEdges(const std::list<Edge*> &Edges)
+MR::Geometry::Point3DCartesian * MR::Model::getCommonPointInEdges(const std::list<Edge*> &Edges)
 {
 	if (Edges.size() < 2)
 		return nullptr;
@@ -121,7 +121,7 @@ MR::Geometry::Point3D * MR::Model::getCommonPointInEdges(const std::list<Edge*> 
 	{
 		if ((*Edges.begin()) == nullptr || (*(--Edges.end())) == nullptr)
 			return nullptr;
-		Geometry::Point3D *p1 = nullptr, *p2 = nullptr, *p3 = nullptr, *p4 = nullptr;
+		Geometry::Point3DCartesian *p1 = nullptr, *p2 = nullptr, *p3 = nullptr, *p4 = nullptr;
 		(*Edges.begin())->getPoints(&p1, &p2);
 		(*(--Edges.end()))->getPoints(&p3, &p4);
 		if ((p1 == p3) || (p1 == p4))
@@ -140,7 +140,7 @@ MR::Geometry::Point3D * MR::Model::getCommonPointInEdges(const std::list<Edge*> 
 		std::list<Edge*>::const_iterator iter = Edges.cbegin();
 		edgesTemp.push_back(*iter); iter++;
 		edgesTemp.push_back(*iter);
-		Geometry::Point3D *tempPoint, *commonPoint = getCommonPointInEdges(edgesTemp);
+		Geometry::Point3DCartesian *tempPoint, *commonPoint = getCommonPointInEdges(edgesTemp);
 		edgesTemp.pop_back();
 
 		for (; iter != Edges.cend(); iter++)

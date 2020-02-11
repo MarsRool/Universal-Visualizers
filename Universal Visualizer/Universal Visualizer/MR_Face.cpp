@@ -8,7 +8,7 @@ MR::Model::Face::Face(const std::list<Edge*> &Edges_i)
 		if (e != nullptr)
 			Edges.push_back(e);
 
-	Geometry::Point3D *Point1, *Point2;
+	Geometry::Point3DCartesian *Point1, *Point2;
 	for (Edge *e : Edges)
 	{
 		e->operator++();
@@ -78,6 +78,39 @@ bool MR::Model::Face::istEdgesInPlane(const std::list<Edge*> &Edges_i)
 	}
 }
 
+void MR::Model::Face::getPointsPath(std::list<MR::Geometry::Point3DCartesian*>& points) const
+{
+	//face гарантирует попарную связность ребер, но не гарантируют правильную последовательность точек в ребрах
+	points.clear();
+
+	MR::Geometry::Point3DCartesian *commonPointI;
+	list<MR::Model::Edge*> edgesTemp;
+	std::list<MR::Model::Edge*>::const_iterator iter = Edges.cbegin();
+	while (iter != Edges.cend())
+	{
+		edgesTemp.clear();
+		edgesTemp.push_back(*iter);
+		iter++;
+		if (iter == Edges.cend())
+			break;
+		edgesTemp.push_back(*iter);
+		commonPointI = getCommonPointInEdges(edgesTemp);
+		if (commonPointI == nullptr)
+			throw std::exception("wrong interpretating from face: commonPointI == nullptr!");
+		if (points.empty())
+		{
+			Edge *first = Edges.front();
+			MR::Geometry::Point3DCartesian *p1, *p2;
+			first->getPoints(&p1, &p2);
+			if (*p1 == *commonPointI)
+				points.push_back(p2);
+			else if (*p2 == *commonPointI)
+				points.push_back(p1);
+		}
+		points.push_back(commonPointI);
+	}
+}
+
 bool MR::Model::Face::isBoundary()
 {
 	for (Edge *e : Edges)
@@ -92,10 +125,10 @@ bool MR::Model::equalFaces(const Face &face_left, const Face &face_right)
 		face_left.Edges.size() != face_right.Edges.size())
 		return false;//количество точек и ребер должно быть одинаково
 
-	for (Geometry::Point3D *p : face_left.Points)//каждая точка должна взаимно содержаться в массиве точек
+	for (Geometry::Point3DCartesian *p : face_left.Points)//каждая точка должна взаимно содержаться в массиве точек
 		if (searchPoint(face_right.Points, p) == nullptr)
 			return false;
-	for (Geometry::Point3D *p : face_right.Points)
+	for (Geometry::Point3DCartesian *p : face_right.Points)
 		if (searchPoint(face_left.Points, p) == nullptr)
 			return false;
 
@@ -211,7 +244,7 @@ void MR::Model::Face::CopyNotUnique(const Face & faceToCopy)
 		e->operator--();
 	Points.clear();
 	Edges.clear();
-	for (Geometry::Point3D *p: faceToCopy.Points)
+	for (Geometry::Point3DCartesian *p: faceToCopy.Points)
 		Points.push_back(p);
 	for (Edge *e: faceToCopy.Edges)
 		Edges.push_back(e);
@@ -229,7 +262,7 @@ void MR::Model::Face::calculateNormal()
 void MR::Model::Face::calculateCenterOfMass()
 {
 	double x = 0, y = 0, z = 0;
-	for (Geometry::Point3D *p: Points)
+	for (Geometry::Point3DCartesian *p: Points)
 	{
 		x += p->x();
 		y += p->y();

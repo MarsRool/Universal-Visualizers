@@ -15,14 +15,14 @@ MR::Model::Object::Object(const std::list<Face*>& Faces_i, string name)
 	Color.setColor((rand() % 256) / 256, (rand() % 256) / 256, (rand() % 256) / 256);
 
 	std::list<Edge*> Edges_i, Edges_temp;
-	std::list<Geometry::Point3D*> Points_i, Points_temp;
+	std::list<Geometry::Point3DCartesian*> Points_i, Points_temp;
 	for (Face *f : Faces_i)
 	{
 		f->getEdges(Edges_temp);
 		f->getPoints(Points_temp);
 		for (Edge *e: Edges_temp)
 			Edges_i.push_back(e);
-		for (Geometry::Point3D *p : Points_temp)
+		for (Geometry::Point3DCartesian *p : Points_temp)
 			Points_i.push_back(p);
 	}
 	StrName = name;
@@ -31,7 +31,7 @@ MR::Model::Object::Object(const std::list<Face*>& Faces_i, string name)
 	clearNonexistent();
 }
 
-MR::Model::Object::Object(const std::list<Geometry::Point3D*> &Points_i, const std::list<Edge*> &Edges_i, const std::list<Face*> &Faces_i, string name)
+MR::Model::Object::Object(const std::list<Geometry::Point3DCartesian*> &Points_i, const std::list<Edge*> &Edges_i, const std::list<Face*> &Faces_i, string name)
 {
 	clearData();
 	Color.setColor((rand() % 256) / 256, (rand() % 256) / 256, (rand() % 256) / 256);
@@ -64,12 +64,12 @@ bool MR::Model::Object::isEmpty()
 	return false;
 }
 
-MR::Geometry::Point3D MR::Model::Object::getPos() const
+MR::Geometry::Point3DCartesian MR::Model::Object::getPos() const
 {
 	return Position;
 }
 
-void MR::Model::Object::setPos(Geometry::Point3D *pointIn)
+void MR::Model::Object::setPos(Geometry::Point3DCartesian *pointIn)
 {
 	Position = *pointIn;
 }
@@ -104,8 +104,8 @@ void MR::Model::Object::drawObject()
 	float black[] = { 0.0, 0.0, 0.0, 1.0 };
 	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);*/
 
-	list<Geometry::Point3D*> drawnPoints_i;
-	Geometry::Point3D *p1, *p2;
+	list<Geometry::Point3DCartesian*> drawnPoints_i;
+	Geometry::Point3DCartesian *p1, *p2;
 	list<Edge*> edges_i;
 	double coef = 80.0;
 	for (Face* f : Faces)
@@ -137,7 +137,7 @@ void MR::Model::Object::drawObject()
 
 		f->getEdges(edges_i);
 		drawnPoints_i.clear();
-		const Geometry::Point3D tmpCenter = f->getCenterOfMass();
+		const Geometry::Point3DCartesian tmpCenter = f->getCenterOfMass();
 
 		glBegin(GL_POLYGON);
 		glColor3d(
@@ -194,7 +194,7 @@ bool MR::Model::Object::isAllFacesInOnePlane() const
 {
 	bool allTheSame = true;
 	Geometry::Vector3D normal = (*Faces.cbegin())->getNormal(), normal_t;
-	std::list<Geometry::Point3D*> pointsTemp, pointsTemp_t;
+	std::list<Geometry::Point3DCartesian*> pointsTemp, pointsTemp_t;
 	(*Faces.cbegin())->getPoints(pointsTemp);
 	Geometry::Plane3D *planeTemp = new Geometry::Plane3D(normal, **pointsTemp.cbegin()), *planeTemp_i;
 	for (Face *f : Faces)
@@ -219,7 +219,7 @@ void MR::Model::Object::clearData()
 	for (Edge *e: Edges)
 		if (!e->existing())
 			delete e;
-	for (Geometry::Point3D *p: Points)
+	for (Geometry::Point3DCartesian *p: Points)
 		if (!p->existing())
 			delete p;
 	Points.clear();
@@ -261,7 +261,7 @@ void MR::Model::Object::clearNonexistent()
 	}
 
 	if (Points.size() > 1)
-		for (std::list<Geometry::Point3D*>::const_iterator iter = ++Points.cbegin(); iter != Points.cend(); iter++)
+		for (std::list<Geometry::Point3DCartesian*>::const_iterator iter = ++Points.cbegin(); iter != Points.cend(); iter++)
 			if (!(*iter)->existing())
 			{
 				delete (*iter);
@@ -275,19 +275,19 @@ void MR::Model::Object::clearNonexistent()
 	}
 }
 
-void MR::Model::Object::CopyUnique(const std::list<Geometry::Point3D*> &Points_i, const std::list<Edge*> &Edges_i, const std::list<Face*> &Faces_i)
+void MR::Model::Object::CopyUnique(const std::list<Geometry::Point3DCartesian*> &Points_i, const std::list<Edge*> &Edges_i, const std::list<Face*> &Faces_i)
 {
 	Points.clear();
 	Edges.clear();
 	Faces.clear();
-	for (Geometry::Point3D* p : Points_i)
+	for (Geometry::Point3DCartesian* p : Points_i)
 	{
 		if (p!= nullptr)
-			Points.push_back(new Geometry::Point3D(*p));
+			Points.push_back(new Geometry::Point3DCartesian(*p));
 	}
 	uniquePoints(Points);
 
-	Geometry::Point3D *p1, *p2;
+	Geometry::Point3DCartesian *p1, *p2;
 	Edge *edge_i;
 	for (Edge* e : Edges_i)
 	{
@@ -326,7 +326,7 @@ void MR::Model::Object::ReplaceNotUnique(Object &objectToCopy)
 	Points.clear();
 	Edges.clear();
 	Faces.clear();
-	for (Geometry::Point3D* p : objectToCopy.Points)
+	for (Geometry::Point3DCartesian* p : objectToCopy.Points)
 		Points.push_back(p);
 	for (Edge* e : objectToCopy.Edges)
 		Edges.push_back(e);
@@ -342,17 +342,17 @@ void MR::Model::Object::deleteNotUsedElements()
 	//удалить неиспользующиеся элементы
 	//по определению все ребра используются, поэтому могут не использоваться только точки.
 	//проверка на вхождение всех точек в полигоны. Обратное вхождение проверяется в check
-	list<Geometry::Point3D*> PointsInFaces;
-	list<Geometry::Point3D*> PointsTemp;
+	list<Geometry::Point3DCartesian*> PointsInFaces;
+	list<Geometry::Point3DCartesian*> PointsTemp;
 	for (Face *f : Faces)
 	{
 		f->getPoints(PointsTemp);
-		for (Geometry::Point3D* p : PointsTemp)
+		for (Geometry::Point3DCartesian* p : PointsTemp)
 			PointsInFaces.push_back(p);
 	}
 
 	if (Points.size() > 1)
-		for (std::list<Geometry::Point3D*>::const_iterator iter = ++Points.cbegin(); iter != Points.cend(); iter++)
+		for (std::list<Geometry::Point3DCartesian*>::const_iterator iter = ++Points.cbegin(); iter != Points.cend(); iter++)
 			if (searchPoint(PointsInFaces, *iter) == nullptr)
 			{
 				delete *iter;
@@ -483,11 +483,11 @@ double MR::Model::Object::counticolor(double a, double b, double c, int k)
 
 }
 
-void MR::Model::Object::uniquePoints(std::list<Geometry::Point3D*> &list)
+void MR::Model::Object::uniquePoints(std::list<Geometry::Point3DCartesian*> &list)
 {
-	for (std::list<Geometry::Point3D*>::const_iterator p_i = list.cbegin(); p_i != list.cend(); p_i++)
+	for (std::list<Geometry::Point3DCartesian*>::const_iterator p_i = list.cbegin(); p_i != list.cend(); p_i++)
 	{
-		for (std::list<Geometry::Point3D*>::const_iterator p_j = list.cbegin(); p_j != list.cend(); p_j++)
+		for (std::list<Geometry::Point3DCartesian*>::const_iterator p_j = list.cbegin(); p_j != list.cend(); p_j++)
 			if (p_i != p_j && **p_i == **p_j)
 			{
 				delete *p_j;

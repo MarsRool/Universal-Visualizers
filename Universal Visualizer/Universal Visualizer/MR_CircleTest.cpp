@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MR_CircleTest.h"
 
-MR::Geometry::CircleTest::CircleTest(const Model::Face & face, const Geometry::Point3D & point, double radius) : TestFace(face), TestPoint(point)
+MR::Geometry::CircleTest::CircleTest(const Model::Face & face, const Geometry::Point3DCartesian & point, double radius) : TestFace(face), TestPoint(point)
 {
 	this->Radius = radius;
 	isOk = check();
@@ -35,7 +35,7 @@ bool MR::Geometry::CircleTest::isCircleIntersectFace() const
 {
 	std::list<Model::Edge*> tempEdges;
 	TestFace.getEdges(tempEdges);
-	Point3D *point1, *point2;
+	Point3DCartesian *point1, *point2;
 	for (Model::Edge *e : tempEdges)
 	{
 		e->getPoints(&point1, &point2);
@@ -47,7 +47,7 @@ bool MR::Geometry::CircleTest::isCircleIntersectFace() const
 
 bool MR::Geometry::CircleTest::isPointInFacePlane() const
 {
-	std::list<Point3D*> tempList;
+	std::list<Point3DCartesian*> tempList;
 	TestFace.getPoints(tempList);
 	Plane3D tempPlane(TestFace.getNormal(), **tempList.cbegin());
 	return (tempPlane.isInPlane(TestPoint));
@@ -58,7 +58,7 @@ void MR::Geometry::CircleTest::test()
 	bool isOk_t;//корректность текущего полученного угла в базисе
 	std::list<Model::Edge*> Edges;//все ребра тестируемой грани
 	TestFace.getEdges(Edges);
-	Point3D *point1, *point2, pointMiddle;//точки текущего ребра
+	Point3DCartesian *point1, *point2, pointMiddle;//точки текущего ребра
 	(*Edges.cbegin())->getPoints(&point1, &point2);
 	Basis2D Basis = Basis2D(Vector3D(TestPoint, *point1), Vector3D(TestPoint, *point2));//устанавливаем базис
 	double angle1, angle2, angleMiddle;//углы радиус-векторов точек текущего ребра
@@ -79,10 +79,9 @@ void MR::Geometry::CircleTest::test()
 		isOk = isOk && isOk_t;
 		if (!isOk)
 			return;
-
-		Sectors.push_back(new Sector2D(angle1, angle2, angleMiddle));
+		
+		Sectors.push_back(new Sector2D(Angle2D(angle1, Angle2D::AngleType::Radians), Angle2D(angle2, Angle2D::AngleType::Radians), Angle2D(angleMiddle, Angle2D::AngleType::Radians)));
 	}
-	Sector2D::sortSectors(Sectors);
 	Sector2D::integrateSectors(Sectors);
 	for (Sector2D *s : Sectors)
 		if (s->isFullCircle() == true)

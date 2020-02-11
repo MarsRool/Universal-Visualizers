@@ -21,7 +21,7 @@ namespace MR
 			///<summary>
 			///Создание теста точки для грани
 			///<summary>
-			CircleTest(const Model::Face &face, const Geometry::Point3D &point, double radius = smallV);
+			CircleTest(const Model::Face &face, const Geometry::Point3DCartesian &point, double radius = smallV);
 			~CircleTest();
 
 			bool isInside() { return IsInside; }
@@ -53,7 +53,7 @@ namespace MR
 			///<summary>
 			///Тестируемая точка
 			///</summary>
-			const Geometry::Point3D TestPoint;
+			const Geometry::Point3DCartesian TestPoint;
 			///<summary>
 			///true- если точка внутри. По умолчанию, она снаружи
 			///<summary>

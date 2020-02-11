@@ -17,7 +17,7 @@ MR::Geometry::Vector3D::Vector3D(double Vx_i, double Vy_i, double Vz_i)
 		throw std::exception("Wrong Vector");
 }
 
-MR::Geometry::Vector3D::Vector3D(const Point3D &point1, const Point3D &point2)
+MR::Geometry::Vector3D::Vector3D(const Point3DCartesian &point1, const Point3DCartesian &point2)
 {
 	setVector(point1, point2);
 	if (!check())
@@ -35,9 +35,9 @@ MR::Geometry::Vector3D::~Vector3D()
 {
 }
 
-void MR::Geometry::Vector3D::setVector(const Point3D &point1, const Point3D &point2)
+void MR::Geometry::Vector3D::setVector(const Point3DCartesian &point1, const Point3DCartesian &point2)
 {
-	Point3D delta = point2 - point1;
+	Point3DCartesian delta = point2 - point1;
 	setVector(delta.x(), delta.y(), delta.z());
 }
 

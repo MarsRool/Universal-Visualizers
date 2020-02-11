@@ -13,8 +13,8 @@ namespace MR
 		{
 		public:
 			Line3D();
-			Line3D(const Vector3D &Direction_i, const Point3D &Point_i);
-			Line3D(const Point3D &Point1, const Point3D &Point2);
+			Line3D(const Vector3D &Direction_i, const Point3DCartesian &Point_i);
+			Line3D(const Point3DCartesian &Point1, const Point3DCartesian &Point2);
 			~Line3D();
 
 			///<summary>
@@ -25,26 +25,26 @@ namespace MR
 			Line3D &operator = (const Line3D & right);
 			bool operator == (const Line3D & right) const;
 			bool operator != (const Line3D & right) const { return (!operator==(right)); }
-			const Point3D& getPoint() const { return Point; }
+			const Point3DCartesian& getPoint() const { return Point; }
 
-			double distance(const Point3D &point) const;
+			double distance(const Point3DCartesian &point) const;
 			double distance(const Line3D &line) const;
 			///<summary>
 			///рассчитывает по заданной x
 			///</summary>
-			Point3D calculateX(double x) const;
+			Point3DCartesian calculateX(double x) const;
 			///<summary>
 			///рассчитывает по заданной y
 			///</summary>
-			Point3D calculateY(double y) const;
+			Point3DCartesian calculateY(double y) const;
 			///<summary>
 			///рассчитывает по заданной z
 			///</summary>
-			Point3D calculateZ(double z) const;
+			Point3DCartesian calculateZ(double z) const;
 			///<summary>
 			///рассчитывает по заданной t
 			///</summary>
-			Point3D calculateT(double t) const;
+			Point3DCartesian calculateT(double t) const;
 			
 			///<summary>
 			///true- если параллельны
@@ -62,7 +62,7 @@ namespace MR
 			///<summary>
 			///точка, через которую проходит прямая
 			///</summary>
-			Point3D Point;
+			Point3DCartesian Point;
 		};
 	}
 }

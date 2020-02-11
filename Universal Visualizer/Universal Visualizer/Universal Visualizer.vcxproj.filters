@@ -61,6 +61,12 @@
     <Filter Include="Заголовочные файлы\of MR_Model\MR Model">
       <UniqueIdentifier>{e4174a0a-4937-4a4b-a383-c9f628169e91}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Заголовочные файлы\of MR_Model\MR geometry\MR_Primitive">
+      <UniqueIdentifier>{36125b10-52ee-4a98-bba8-4daa6eaacad0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\of MR_Model\MR geometry\MR_Primitive">
+      <UniqueIdentifier>{ba905583-dad2-4b3f-b46f-aa504bc098ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -132,18 +138,6 @@
     <ClCompile Include="MR_Matrix.cpp">
       <Filter>Файлы исходного кода\of MR_Model\MR helpers</Filter>
     </ClCompile>
-    <ClCompile Include="MR_Line3D.cpp">
-      <Filter>Файлы исходного кода\of MR_Model\MR geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="MR_Plane3D.cpp">
-      <Filter>Файлы исходного кода\of MR_Model\MR geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="MR_Vector3D.cpp">
-      <Filter>Файлы исходного кода\of MR_Model\MR geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="MR_Point3D.cpp">
-      <Filter>Файлы исходного кода\of MR_Model\MR geometry</Filter>
-    </ClCompile>
     <ClCompile Include="MR_Edge.cpp">
       <Filter>Файлы исходного кода\of MR_Model\MR Model</Filter>
     </ClCompile>
@@ -171,11 +165,38 @@
     <ClCompile Include="MR_Basis2D.cpp">
       <Filter>Файлы исходного кода\of MR_Model\MR geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MR_Basis3D.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="MR_Sector3D.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="DoublePreciseApproximate.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR helpers</Filter>
     </ClCompile>
     <ClCompile Include="MR_Sector2D.cpp">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Basis3D.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Angle2D.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry\MR_Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Angle3D.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry\MR_Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Line3D.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry\MR_Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Plane3D.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry\MR_Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Vector3D.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry\MR_Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Point3D_Cartesian.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry\MR_Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="MR_Point3D_Spherical.cpp">
+      <Filter>Файлы исходного кода\of MR_Model\MR geometry\MR_Primitive</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -245,18 +266,6 @@
     <ClInclude Include="MR_Matrix.h">
       <Filter>Заголовочные файлы\of MR_Model\MR helpers</Filter>
     </ClInclude>
-    <ClInclude Include="MR_Line3D.h">
-      <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="MR_Plane3D.h">
-      <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="MR_Point3D.h">
-      <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="MR_Vector3D.h">
-      <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
-    </ClInclude>
     <ClInclude Include="MR_Edge.h">
       <Filter>Заголовочные файлы\of MR_Model\MR Model</Filter>
     </ClInclude>
@@ -275,9 +284,6 @@
     <ClInclude Include="MR_TestedObject.h">
       <Filter>Заголовочные файлы\of MR_Model\MR Model</Filter>
     </ClInclude>
-    <ClInclude Include="MR_SphereTest.h">
-      <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
-    </ClInclude>
     <ClInclude Include="MR_CircleTest.h">
       <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
     </ClInclude>
@@ -292,6 +298,39 @@
     </ClInclude>
     <ClInclude Include="MR_Sector2D.h">
       <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Sector3D.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Math.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="DoublePreciseApproximate.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_SphereTest.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Angle2D.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry\MR_Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Angle3D.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry\MR_Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Line3D.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry\MR_Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Plane3D.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry\MR_Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Vector3D.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry\MR_Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Point3D_Spherical.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry\MR_Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="MR_Point3D_Cartesian.h">
+      <Filter>Заголовочные файлы\of MR_Model\MR geometry\MR_Primitive</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -339,7 +378,6 @@
     <None Include="ILU.dll">
       <Filter>Файлы ресурсов</Filter>
     </None>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="freeglut.lib">

@@ -7,6 +7,9 @@ namespace MR
 {
 	namespace Geometry
 	{
+		///<summary>
+		///класс двумерного ортонормированного базиса в пространстве.
+		///</summary>
 		class Basis2D
 		{
 		public:
